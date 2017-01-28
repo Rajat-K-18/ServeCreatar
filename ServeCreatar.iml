@@ -22,5 +22,6 @@
     <orderEntry type="library" name="jetty-io-9.4.1.v20170120" level="project" />
     <orderEntry type="library" name="jetty-http-9.4.1.v20170120" level="project" />
     <orderEntry type="library" name="websocket-common-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="commons-io-2.5" level="project" />
   </component>
 </module>

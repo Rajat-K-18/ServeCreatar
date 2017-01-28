@@ -1,11 +1,13 @@
+import org.apache.commons.io.FileUtils;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
+import java.io.File;
 import java.io.IOException;
 
 @WebSocket
-public class MyWebSocketHandler {
+public class MyWebSocketHandler  {
     private Session session;
 
     @OnWebSocketClose
@@ -30,8 +32,9 @@ public class MyWebSocketHandler {
     }
 
     @OnWebSocketMessage
-    public void onMessage(byte[] data, int offset, int length) {
-        System.out.println(new String (data));
+    public void onMessage(byte[] data, int offset, int length) throws IOException {
+        System.out.println("Wriiten");
+        FileUtils.writeByteArrayToFile(new File(System.nanoTime()+"hello.jpg"), data);
         try {
             this.session.getRemote().sendString("Receiving Binary Data==>"+data);
         } catch (IOException e) {

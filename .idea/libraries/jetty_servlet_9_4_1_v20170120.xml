@@ -1,9 +1,12 @@
 <component name="libraryTable">
   <library name="jetty-servlet-9.4.1.v20170120">
     <CLASSES>
-      <root url="jar://$USER_HOME$/Desktop/lib/lib/jetty-servlet-9.4.1.v20170120.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/lib/jetty-servlet-9.4.1.v20170120.jar!/" />
+      <root url="file://$PROJECT_DIR$" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src/main/java" />
+    </SOURCES>
   </library>
 </component>

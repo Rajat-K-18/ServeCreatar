@@ -34,7 +34,7 @@ public class MyWebSocketHandler  {
     @OnWebSocketMessage
     public void onMessage(byte[] data, int offset, int length) throws IOException {
         System.out.println("Wriiten");
-        FileUtils.writeByteArrayToFile(new File(System.nanoTime()+"hello.jpg"), data);
+        FileUtils.writeByteArrayToFile(new File("images/"+System.nanoTime()+"hello.jpg"), data);
         try {
             this.session.getRemote().sendString("Receiving Binary Data==>"+data);
         } catch (IOException e) {

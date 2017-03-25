@@ -11,17 +11,17 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="commons-io-2.5" level="project" />
+    <orderEntry type="library" name="jetty-http-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="jetty-io-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="jetty-server-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="jetty-servlet-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="jetty-servlets-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="jetty-util-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="servlet-api-3.1" level="project" />
     <orderEntry type="library" name="websocket-api-9.4.1.v20170120" level="project" />
+    <orderEntry type="library" name="websocket-common-9.4.1.v20170120" level="project" />
     <orderEntry type="library" name="websocket-server-9.4.1.v20170120" level="project" />
     <orderEntry type="library" name="websocket-servlet-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="servlet-api-3.1" level="project" />
-    <orderEntry type="library" name="jetty-util-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="jetty-servlets-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="jetty-servlet-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="jetty-server-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="jetty-io-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="jetty-http-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="websocket-common-9.4.1.v20170120" level="project" />
-    <orderEntry type="library" name="commons-io-2.5" level="project" />
   </component>
 </module>

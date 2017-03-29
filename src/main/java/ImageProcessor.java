@@ -1,51 +1,41 @@
-//import com.sun.org.apache.xml.internal.serializer.utils.Utils;
-import com.sun.org.apache.xml.internal.serializer.utils.Utils;
-import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.websocket.server.WebSocketHandler;
-import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
-//import org.jcp.xml.dsig.internal.dom.Utils;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
 
-
 import javax.imageio.ImageIO;
-import javax.swing.text.html.ImageView;
 import java.awt.image.BufferedImage;
-import java.io.File;
+import java.awt.image.DataBufferByte;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Created by rajat on 29/3/17.
+ */
+public class ImageProcessor  {
 
-public class ServeCreatARMain {
-    private static final int MAX_MESSAGE_SIZE = 3000000;
-    private static final int PORT_NO = 9999;
-    private static java.awt.image.BufferedImage bufferedImage;
+    // Convert image to Mat
 
-
-    // Compulsory statement to run opencv
-    static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
-
-    public static void main(String[] args) throws Exception {
-
-
-        //startServer(); //do need to see what happens when multiple devices access at the same time
-
-        method2();
-        //method1();
-
-        }
-
-    private static void method2() {
-        String bookObject = "crop.jpg";
-        String bookScene = "full.jpg";
+    public static void processImage(byte[] data) {
+        String bookObject = "hajcrop.jpg";
+        String bookScene = "booknew"+System.currentTimeMillis()+".jpg";
 
         System.out.println("Started....");
         System.out.println("Loading images...");
         Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
-        Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
+        //Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
+
+        BufferedImage temp = null;
+        try {
+            temp = ImageIO.read(new ByteArrayInputStream(data));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        Mat sceneImage = matify(temp);
+
 
         MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();
         FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
@@ -85,7 +75,7 @@ public class ServeCreatARMain {
         System.out.println("Calculating good match list...");
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();
 
-        float nndrRatio = 0.8f;
+        float nndrRatio = 0.5f;
 
         for (int i = 0; i < matches.size(); i++) {
             MatOfDMatch matofDMatch = matches.get(i);
@@ -144,9 +134,9 @@ public class ServeCreatARMain {
 
             Features2d.drawMatches(objectImage, objectKeyPoints, sceneImage, sceneKeyPoints, goodMatches, matchoutput, matchestColor, newKeypointColor, new MatOfByte(), 2);
 
-            Highgui.imwrite("output//outputImage.jpg", outputImage);
-            Highgui.imwrite("output//matchoutput.jpg", matchoutput);
-            Highgui.imwrite("output//img.jpg", img);
+            Highgui.imwrite("output//outputImage"+System.currentTimeMillis()+".jpg", outputImage);
+            Highgui.imwrite("output//matchoutput"+System.currentTimeMillis()+".jpg", matchoutput);
+            Highgui.imwrite("output//img"+System.currentTimeMillis()+".jpg", img);
         } else {
             System.out.println("Object Not Found");
         }
@@ -154,18 +144,21 @@ public class ServeCreatARMain {
         System.out.println("Ended....");
     }
 
-    private static void startServer() throws Exception {
-        Server server = new Server(PORT_NO);
-        WebSocketHandler wsHandler = new WebSocketHandler() {
-            @Override
-            public void configure(WebSocketServletFactory factory) {
-                factory.getPolicy().setMaxBinaryMessageSize(MAX_MESSAGE_SIZE);
-                factory.register(MyWebSocketHandler.class);
 
-            }
-        };
-        server.setHandler(wsHandler);
-        server.start();
-        server.join();
+    public static Mat matify(BufferedImage im) {
+        // Convert INT to BYTE
+        //im = new BufferedImage(im.getWidth(), im.getHeight(),BufferedImage.TYPE_3BYTE_BGR);
+        // Convert bufferedimage to byte array
+        byte[] pixels = ((DataBufferByte) im.getRaster().getDataBuffer())
+                .getData();
+
+        // Create a Matrix the same size of image
+        Mat image = new Mat(im.getHeight(), im.getWidth(), CvType.CV_8UC3);
+        // Fill Matrix with image values
+        image.put(0, 0, pixels);
+
+        return image;
+
     }
+
 }

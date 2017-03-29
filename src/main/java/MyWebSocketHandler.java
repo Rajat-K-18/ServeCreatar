@@ -8,7 +8,10 @@ import java.io.IOException;
 
 @WebSocket
 public class MyWebSocketHandler  {
+
+
     private Session session;
+    ImageProcessor mImageProcessor;
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
@@ -22,6 +25,7 @@ public class MyWebSocketHandler  {
 
     @OnWebSocketConnect
     public void onConnect(Session session) {
+        mImageProcessor=new ImageProcessor();
         this.session = session;
         System.out.println("Connect: " + session.getRemoteAddress().getAddress());
         try {
@@ -34,7 +38,8 @@ public class MyWebSocketHandler  {
     @OnWebSocketMessage
     public void onMessage(byte[] data, int offset, int length) throws IOException {
         System.out.println("Wriiten");
-        FileUtils.writeByteArrayToFile(new File("images/"+System.nanoTime()+"hello.jpg"), data);
+        //FileUtils.writeByteArrayToFile(new File("images/"+System.nanoTime()+"hello.jpg"), data);
+        mImageProcessor.processImage(data);
         try {
             this.session.getRemote().sendString("Receiving Binary Data==>"+data);
         } catch (IOException e) {

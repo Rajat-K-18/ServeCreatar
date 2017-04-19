@@ -1,3 +1,4 @@
+import okio.ByteString;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
@@ -6,40 +7,43 @@ import org.opencv.highgui.Highgui;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by rajat on 29/3/17.
+ * Created by rajat on 30/3/17.
  */
-public class ImageProcessor  {
+public class ProcessingThread extends Thread{
+    private static final String TAG = ProcessingThread.class.getSimpleName();
+    public byte[] mData ;
+    public MyWebSocketHandler mWebSocketHandler;
+    public String mUniqueId;
 
-
-    private MyWebSocketHandler mWebSocketHandler;
-    private String mUniqueId ;
-
-    public ImageProcessor(String mUniqueId, MyWebSocketHandler myWebSocketHandler)  {
-        mWebSocketHandler = myWebSocketHandler;
-        this.mUniqueId = mUniqueId;
-    }
-
-    // Convert image to Mat
-
-
-
-    public  void processImage( byte[] data) {
-        ProcessingThread processingThread = new ProcessingThread(data,mWebSocketHandler,mUniqueId);
-        processingThread.run();
+    @Override
+    public void run() {
+        super.run();
+        try {
+            recogniseImage(mData);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return;
 
     }
 
- private static void recogniseImage(byte[] data) {
+    ProcessingThread(byte[] data, MyWebSocketHandler mWebSocketHandler, String mUniqueId){
+        mData=data;
+        this.mWebSocketHandler = mWebSocketHandler;
 
-        String bookObject = "booknewcrop.jpg";
-        String bookScene = "booknew"+System.currentTimeMillis()+".jpg";
+    }
 
+    private  void recogniseImage(byte[] data) throws IOException {
+
+        String bookObject = "bookish.jpg";
+        String bookScene = "booknewcrop"+System.currentTimeMillis()+".jpg";
+        //String bookScene = "booknewcrop.jpg";
         System.out.println("Started....");
         System.out.println("Loading images...");
         Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
@@ -156,8 +160,55 @@ public class ImageProcessor  {
             Highgui.imwrite("output//matchoutput"+System.currentTimeMillis()+".jpg", matchoutput);
             Highgui.imwrite("output//img"+System.currentTimeMillis()+".jpg", img);
 
+            mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
+
+            //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectFound");
+
+
+
         } else {
+            //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());
+
+
+
+            //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectNOTTTTTTTTTTTTTTTFound");
+            //System.out.println(TAG+":"+mWebSocketHandler.getSession().getRemoteAddress());
             System.out.println("Object Not Found");
+
+            /* Read the fset file */
+            File read_fset = new File("pinball.fset");
+            byte[] bytesArray = new byte[(int) read_fset.length()];
+            FileInputStream f1 = new FileInputStream(read_fset);
+            f1.read(bytesArray);
+            f1.close();
+
+        /* Read the fset3 file */
+            File read_fset3 = new File("pinball.fset3");
+            //byte[] bytesArray = new byte[(int) file.length()];
+            FileInputStream f2 = new FileInputStream(read_fset3);
+            f2.read(bytesArray);
+            f2.close();
+
+        /* Read the iset file */
+            File read_iset = new File("pinball.iset");
+            //byte[] bytesArray = new byte[(int) file.length()];
+            FileInputStream f3 = new FileInputStream(read_iset);
+            f3.read(bytesArray);
+            f3.close();
+
+            MagicData.Marker m = new MagicData.Marker.Builder()
+                    .fset(ByteString.of(bytesArray))
+                    .fset3(ByteString.of(bytesArray))
+                    .iset(ByteString.of(bytesArray))
+                    .build();
+
+            byte[] ss =  MagicData.Marker.ADAPTER.encode(m);
+
+            MagicData.Marker s = MagicData.Marker.ADAPTER.decode(ss);
+            System.out.println("It is fest file:..."+s.fset.toString());
+
+            mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(ss));
+
         }
 
         System.out.println("Ended....");
@@ -179,5 +230,6 @@ public class ImageProcessor  {
         return image;
 
     }
+
 
 }

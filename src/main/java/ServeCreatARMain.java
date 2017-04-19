@@ -1,5 +1,6 @@
 //import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 import com.sun.org.apache.xml.internal.serializer.utils.Utils;
+import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
@@ -13,8 +14,7 @@ import org.opencv.highgui.Highgui;
 import javax.imageio.ImageIO;
 import javax.swing.text.html.ImageView;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,16 +31,18 @@ public class ServeCreatARMain {
     public static void main(String[] args) throws Exception {
 
 
-        //startServer(); //do need to see what happens when multiple devices access at the same time
+        startServer(); //do need to see what happens when multiple devices access at the same time
+        //FileRead r = new FileRead();
+        //r.FileRead();
 
-        method2();
+        //method2();
         //method1();
 
         }
 
     private static void method2() {
-        String bookObject = "crop.jpg";
-        String bookScene = "full.jpg";
+        String bookObject = "booknewcrop.jpg";
+        String bookScene = "booknew.jpg";
 
         System.out.println("Started....");
         System.out.println("Loading images...");
@@ -85,7 +87,7 @@ public class ServeCreatARMain {
         System.out.println("Calculating good match list...");
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();
 
-        float nndrRatio = 0.8f;
+        float nndrRatio = 0.9f;
 
         for (int i = 0; i < matches.size(); i++) {
             MatOfDMatch matofDMatch = matches.get(i);
@@ -155,17 +157,19 @@ public class ServeCreatARMain {
     }
 
     private static void startServer() throws Exception {
-        Server server = new Server(PORT_NO);
+        final Server server = new Server(PORT_NO);
         WebSocketHandler wsHandler = new WebSocketHandler() {
             @Override
             public void configure(WebSocketServletFactory factory) {
                 factory.getPolicy().setMaxBinaryMessageSize(MAX_MESSAGE_SIZE);
                 factory.register(MyWebSocketHandler.class);
 
+
             }
         };
         server.setHandler(wsHandler);
         server.start();
         server.join();
+
     }
 }

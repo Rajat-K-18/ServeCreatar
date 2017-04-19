@@ -1,0 +1,26 @@
+syntax = "proto2";
+
+message MagicData
+{
+	required Marker marker = 1;
+	required Information information = 2;
+	
+
+	message Marker{
+		required bytes iset = 1;
+		required bytes fset = 2;
+		required bytes fset3 = 3;
+		}
+
+	message Information {
+		required bytes obj = 1;
+		required bytes mtl = 2;
+		repeated Images image = 3;
+		}
+
+	message Images{
+		required bytes imagebytes = 1;
+	}	
+}
+
+

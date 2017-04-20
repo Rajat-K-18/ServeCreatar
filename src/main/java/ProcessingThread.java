@@ -196,18 +196,35 @@ public class ProcessingThread extends Thread{
             f3.read(bytesArray);
             f3.close();
 
+
             MagicData.Marker m = new MagicData.Marker.Builder()
+                    .markerName("pinball")
                     .fset(ByteString.of(bytesArray))
                     .fset3(ByteString.of(bytesArray))
                     .iset(ByteString.of(bytesArray))
                     .build();
 
-            byte[] ss =  MagicData.Marker.ADAPTER.encode(m);
+            MagicData.Information i = new MagicData.Information.Builder()
+                    .mtl(ByteString.of(new byte[10]))
+                    .obj(ByteString.of(new byte[10]))
+                    .image(new LinkedList<MagicData.Images>())
+                    .build();
 
-            MagicData.Marker s = MagicData.Marker.ADAPTER.decode(ss);
-            System.out.println("It is fest file:..."+s.fset.toString());
+            MagicData magicData = new MagicData.Builder()
+                    .marker(m)
+                    .information(i)
+                    .build();
 
-            mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(ss));
+            //byte[] markerByteArray =  MagicData.Marker.ADAPTER.encode(m);
+
+            byte[] magicDataByteArray = MagicData.ADAPTER.encode(magicData);
+
+
+
+            //MagicData.Marker s = MagicData.Marker.ADAPTER.decode(markerByteArray);
+            //System.out.println("It is fest file:..."+s.fset.toString());
+
+            mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataByteArray));
 
         }
 

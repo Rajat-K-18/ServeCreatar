@@ -7,9 +7,10 @@ message MagicData
 	
 
 	message Marker{
-		required bytes iset = 1;
-		required bytes fset = 2;
-		required bytes fset3 = 3;
+	    required string markerName = 1;
+		required bytes iset = 2;
+		required bytes fset = 3;
+		required bytes fset3 = 4;
 		}
 
 	message Information {

@@ -56,8 +56,8 @@ public class DBHelper {
             */
 
 
-            byte[] t = file_read("pinball.fset");
-            t = file_read("pinball.iset");
+            //byte[] t = file_read("pinball.fset");
+            //t = file_read("pinball.iset");
             MagicData.Marker marker = new MagicData.Marker.Builder()
                     .fset(ByteString.of(file_read("pinball.fset")))
                     .fset3(ByteString.of(file_read("pinball.fset3")))
@@ -67,25 +67,22 @@ public class DBHelper {
 
             byte[] r = MagicData.Marker.ADAPTER.encode(marker);
 
-            stmt = conn.createStatement();
-            String insert_table_sql = "INSERT INTO markerandinformation values(?,?,?,?,?)";
+
+            //String insert_table_sql = "INSERT INTO markerandinformation values(?,?,?,?,?)";
+            //String insert_table_sql = "INSERT INTO abc (name, number1) values (?,?)";
+
+           PreparedStatement statement = conn.prepareStatement
+                   ("INSERT INTO markerandinformation values(?,?,?,?,?)");
+
+           statement.setString(1, "pinball");
+           statement.setBytes(2, file_read(r));
+           statement.setBytes(3, r);
+           statement.setBytes(4, r);
+           statement.setBytes(5, r);
 
 
-//            stmt = conn.createStatement();
-//            String h = "SELECT * FROM markerandinformation";
-//            stmt.execute(h);
 
-
-            PreparedStatement statement = conn.prepareStatement(insert_table_sql);
-            statement.setString(1, "pinball");
-            //InputStream inputStream = new FileInputStream(r);
-
-            statement.setBytes(2, r);
-            statement.setBytes(3, r);
-            statement.setBytes(4, r);
-            statement.setBytes(5, r);
-
-            statement.execute(insert_table_sql);
+            statement.executeUpdate();
 
 
         }catch(SQLException se){

@@ -177,31 +177,31 @@ public class ProcessingThread extends Thread{
 
             /* Read the fset file */
             File read_fset = new File("pinball.fset");
-            byte[] bytesArray = new byte[(int) read_fset.length()];
+            byte[] bytesArray1 = new byte[(int) read_fset.length()];
             FileInputStream f1 = new FileInputStream(read_fset);
-            f1.read(bytesArray);
+            f1.read(bytesArray1);
             f1.close();
 
         /* Read the fset3 file */
             File read_fset3 = new File("pinball.fset3");
-            //byte[] bytesArray = new byte[(int) file.length()];
+            byte[] bytesArray2 = new byte[(int) read_fset3.length()];
             FileInputStream f2 = new FileInputStream(read_fset3);
-            f2.read(bytesArray);
+            f2.read(bytesArray2);
             f2.close();
 
         /* Read the iset file */
             File read_iset = new File("pinball.iset");
-            //byte[] bytesArray = new byte[(int) file.length()];
+            byte[] bytesArray3 = new byte[(int) read_iset.length()];
             FileInputStream f3 = new FileInputStream(read_iset);
-            f3.read(bytesArray);
+            f3.read(bytesArray3);
             f3.close();
 
 
             MagicData.Marker m = new MagicData.Marker.Builder()
                     .markerName("pinball")
-                    .fset(ByteString.of(bytesArray))
-                    .fset3(ByteString.of(bytesArray))
-                    .iset(ByteString.of(bytesArray))
+                    .fset(ByteString.of(bytesArray1))
+                    .fset3(ByteString.of(bytesArray2))
+                    .iset(ByteString.of(bytesArray3))
                     .build();
 
             MagicData.Information i = new MagicData.Information.Builder()

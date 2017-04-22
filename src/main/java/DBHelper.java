@@ -1,8 +1,7 @@
 import okio.ByteString;
-
 import java.io.*;
 import java.sql.*;
-import java.util.Scanner;
+
 
 
 /**
@@ -37,7 +36,7 @@ public class DBHelper {
         Statement stmt = null;
 
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            Class.forName("com.mysql.jdbc.Driver");//TODO:whats the use of this statement
             System.out.println("Connecting to database...");
             mDatabaseConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 

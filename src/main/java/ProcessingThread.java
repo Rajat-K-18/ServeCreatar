@@ -1,3 +1,4 @@
+import model.MagicData;
 import okio.ByteString;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
@@ -215,13 +216,13 @@ public class ProcessingThread extends Thread{
                     .information(i)
                     .build();
 
-            //byte[] markerByteArray =  MagicData.Marker.ADAPTER.encode(m);
+            //byte[] markerByteArray =  model.MagicData.Marker.ADAPTER.encode(m);
 
             byte[] magicDataByteArray = MagicData.ADAPTER.encode(magicData);
 
 
 
-            //MagicData.Marker s = MagicData.Marker.ADAPTER.decode(markerByteArray);
+            //model.MagicData.Marker s = model.MagicData.Marker.ADAPTER.decode(markerByteArray);
             //System.out.println("It is fest file:..."+s.fset.toString());
 
             mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataByteArray));

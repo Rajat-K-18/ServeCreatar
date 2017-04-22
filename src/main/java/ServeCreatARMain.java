@@ -1,5 +1,11 @@
 //import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 import com.sun.org.apache.xml.internal.serializer.utils.Utils;
+import helper.Logger;
+import helper.database.DBHelper;
+import model.MagicData;
+import okio.ByteString;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
@@ -23,8 +29,9 @@ import java.util.Scanner;
 public class ServeCreatARMain {
     private static final int MAX_MESSAGE_SIZE = 3000000;
     private static final int PORT_NO = 9999;
+    private static final String TAG = ServeCreatARMain.class.getSimpleName();
     private static java.awt.image.BufferedImage bufferedImage;
-
+    private static DBHelper mDBHelper;
 
     // Compulsory statement to run opencv
     static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
@@ -52,6 +59,8 @@ public class ServeCreatARMain {
             default:System.out.print("\ninvalid option , please try again\n");
 
         }
+        
+        closeOpenResources();
 
       //  startServer(); //do need to see what happens when multiple devices access at the same time
         //FileRead r = new FileRead();
@@ -62,7 +71,16 @@ public class ServeCreatARMain {
 
         }
 
-        /* This function will be responsible for tasks such as loading the DBHelper
+        /*
+        This method will be used to close out any open resources , such as database connection
+        and so on
+         */
+    private static void closeOpenResources() {
+        //TODO:implement it
+
+    }
+
+        /* This function will be responsible for tasks such as loading the helper.database.DBHelper
            by first loading various configuratons from a configuration file
            These configurations will have stuff such ip address of database , its user name
            and password , and other project related settings
@@ -70,6 +88,7 @@ public class ServeCreatARMain {
 
     private static void doTheIntitialLoading() {
 
+        mDBHelper = new DBHelper();
         //find the serveCreatARconfig.xml file and load it
         //if can't find , create a new one
         //TODO : implement using jaxb
@@ -79,16 +98,93 @@ public class ServeCreatARMain {
 
     }
 
-    private static void loadDatabase() {
+    private static void loadDatabase() throws Exception {
 
         System.out.print("\nEnter the absolute path of MagicContent folder :- \n" +
                 "(you may do so by looking at the properties of the folder) \n");
+
 
         Scanner scanner =  new Scanner(System.in);
         String magicDataFolderPath = scanner.next();
         scanner.close();
 
+        File magicDataFolderFile = new File(magicDataFolderPath);
+        loadDataBaseFromFolder(magicDataFolderFile);
+    }
 
+    private static void loadDataBaseFromFolder(File magicDataFolderFile) {
+
+        for (File file : magicDataFolderFile.listFiles()){
+            insertMarker(file);
+        }
+
+    }
+
+    private static void insertMarker(File markerFolderFile) {
+
+        byte[] markerEncodedData = null;
+        try {
+            for(File file:markerFolderFile.listFiles()){
+                if(file.getName().contentEquals("markerNFTData")){
+                     markerEncodedData = getMarkerNFTData(markerFolderFile);
+                }
+                else if(file.getName().contentEquals("information")){
+                   processInformation(file);
+                }
+                else{
+                    //TODO : to be decided
+                }
+            mDBHelper.insertData("put marker name here",
+                    markerEncodedData ,
+                    null, // to be filled
+                    null, // to be filled
+                    null //to be filled
+                        );
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void processInformation(File file) {
+        //TODO: implement it
+    }
+
+    private static byte[] getMarkerNFTData(File markerNFTDataFolderFile) throws Exception {
+        String markerName = null;
+        byte[] isetData=null,fsetData=null,fset3Data =null;
+        for (File file : markerNFTDataFolderFile.listFiles()){
+            if(file.getName().contains(".iset")){
+                markerName = file.getName().substring(0 ,//start index
+                            file.getName().indexOf('.') //end index  -- TODO: check it should be reduced by 1
+                        );
+                isetData = FileUtils.readFileToByteArray(file);
+            }else if(file.getName().contains(".fset")){
+                 fsetData = FileUtils.readFileToByteArray(file);
+            }else if(file.getName().contains(".fset3")){
+                 fset3Data = FileUtils.readFileToByteArray(file);
+            }
+        }
+
+        if(markerName!=null && isetData !=null && fset3Data!=null && fsetData!=null){
+            //this means marker data has been picked up
+            MagicData.Marker marker = new MagicData.Marker.Builder()
+                    .markerName(markerName)
+                    .fset(ByteString.of(fsetData))
+                    .fset3(ByteString.of(fset3Data))
+                    .iset(ByteString.of(isetData))
+                    .build();
+            Logger.log(TAG,"marker created successfully for folder "
+                    +markerNFTDataFolderFile.getAbsolutePath());
+            return MagicData.Marker.ADAPTER.encode(marker);
+        }else{
+            Logger.log(TAG,"failed to load the given marker data in folder "
+            + markerNFTDataFolderFile.getAbsolutePath());
+            throw new Exception("failed to load the given marker data in folder "
+                    + markerNFTDataFolderFile.getAbsolutePath());
+        }
 
     }
 

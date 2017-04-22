@@ -1,6 +1,11 @@
+package helper.database;
+import model.MagicData;
+
+import helper.Logger;
 import okio.ByteString;
 import java.io.*;
 import java.sql.*;
+
 
 
 
@@ -13,12 +18,13 @@ public class DBHelper {
     static final String DB_URL = "jdbc:mysql://localhost/";
     static final String USERNAME = "root";
     static final String PASSWORD = "root";
+    private static final String TAG = DBHelper.class.getSimpleName();
     private static Connection mDatabaseConnection;
 
 
     //byte[] bytesArray = new byte[10000];
 
-    DBHelper() {
+    public DBHelper() {
 
         if (mDatabaseConnection == null) {
             try {
@@ -33,16 +39,13 @@ public class DBHelper {
 
 
     private void createNewDatabaseConnection() throws SQLException, ClassNotFoundException {
-        Statement stmt = null;
 
         try {
             Class.forName("com.mysql.jdbc.Driver");//TODO:whats the use of this statement
             System.out.println("Connecting to database...");
             mDatabaseConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
 
-
         } catch (Exception e) {
-
 
             e.printStackTrace();
         }
@@ -56,7 +59,6 @@ public class DBHelper {
 
         try {
 
-            //STEP 4: Execute a query
             System.out.println("Creating database...");
             stmt = mDatabaseConnection.createStatement();
 
@@ -98,19 +100,15 @@ public class DBHelper {
 
             //String insert_table_sql = "INSERT INTO markerandinformation values(?,?,?,?,?)";
             //String insert_table_sql = "INSERT INTO abc (name, number1) values (?,?)";
+/*
 
-            PreparedStatement statement = mDatabaseConnection.prepareStatement
-                    ("INSERT INTO markerandinformation values(?,?,?,?,?)");
+            insertData("pinball",
+                    r,
+                    r,
+                    r,
+                    r);
 
-            statement.setString(1, "pinball");
-            statement.setBytes(2, r);
-            statement.setBytes(3, r);
-            statement.setBytes(4, r);
-            statement.setBytes(5, r);
-
-
-            statement.executeUpdate();
-
+*/
 
         } catch (
                 SQLException se)
@@ -122,7 +120,8 @@ public class DBHelper {
                 Exception e)
 
         {
-            //Handle errors for Class.forName
+            //Handle errors for Class.forName ---this statement has been moved to another method
+            //check out what to do about it
             e.printStackTrace();
         } finally
 
@@ -134,15 +133,33 @@ public class DBHelper {
                     stmt.close();
             } catch (SQLException se2) {
             }// nothing we can do
-            try {
-                if (mDatabaseConnection != null)
-                    mDatabaseConnection.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }//end finally try
-        }//end try
-        System.out.println("Goodbye!");
 
+
+
+    }
+
+    }
+
+    public  void insertData(String markerName, byte[] markerEncodedData, byte[] informationObj, byte[] informationMtl, byte[] informationImages){
+
+        PreparedStatement preparedStatement = null;
+        //TODO:see if i need to create a new preparedstatement every time
+        try {
+            preparedStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?)");
+            preparedStatement.setString(1, markerName);
+            preparedStatement.setBytes(2, markerEncodedData);
+            preparedStatement.setBytes(3, informationObj);
+            preparedStatement.setBytes(4, informationMtl);
+            preparedStatement.setBytes(5, informationImages);
+            preparedStatement.executeUpdate();
+
+            //TODO:check do we have to close the prepared statement and other statements
+            //
+        } catch (SQLException e) {
+            Logger.log(TAG,"failed to insert data");
+            e.printStackTrace();
+
+        }
 
     }
 
@@ -155,5 +172,20 @@ public class DBHelper {
         f1.read(bytesArray);
         f1.close();
         return bytesArray;
+    }
+
+    public void closeConnection(){
+
+        //TODO:se if we need to close/clear the statemments as well
+
+        try {
+            if(mDatabaseConnection!=null){
+                mDatabaseConnection.close();
+            }
+            Logger.log(TAG,"closed the database connection");
+        } catch (SQLException e) {
+            Logger.log(TAG,"Error in closing the database connection");
+            e.printStackTrace();
+        }
     }
 }

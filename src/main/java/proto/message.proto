@@ -1,6 +1,6 @@
 syntax = "proto2";
 
-message MagicData
+message model.MagicData
 {
 	required Marker marker = 1;
 	required Information information = 2;

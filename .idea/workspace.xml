@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7e6b6379-c37b-4a2d-bd76-63c07021cd05" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/DBHelper.java" afterPath="$PROJECT_DIR$/src/main/java/DBHelper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/DBHelper.java" afterPath="$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/src/main/java/MagicData.java" afterPath="$PROJECT_DIR$/src/main/java/model/MagicData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ProcessingThread.java" afterPath="$PROJECT_DIR$/src/main/java/ProcessingThread.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" afterPath="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/proto/message.proto" afterPath="$PROJECT_DIR$/src/main/java/proto/message.proto" />
     </list>
     <ignored path="ServeCreatar.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -25,12 +30,15 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ServeCreatARMain.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ServeCreatARMain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ServeCreatARMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2518">
-              <caret line="70" column="7" lean-forward="false" selection-start-line="70" selection-start-column="7" selection-end-line="70" selection-end-column="7" />
-              <folding />
+            <state relative-caret-position="3289">
+              <caret line="143" column="13" lean-forward="true" selection-start-line="143" selection-start-column="13" selection-end-line="143" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -55,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/DBHelper.java">
+      <file leaf-file-name="DBHelper.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1861">
-              <caret line="56" column="8" lean-forward="false" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+            <state relative-caret-position="462">
+              <caret line="110" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,11 +89,13 @@
         </entry>
       </file>
       <file leaf-file-name="MagicData.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/MagicData.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/model/MagicData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="235">
+              <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -95,7 +105,15 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="92" column="9" lean-forward="false" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#829#830#0" expanded="false" />
+                <element signature="e#868#869#0" expanded="false" />
+                <element signature="e#920#921#0" expanded="false" />
+                <element signature="e#968#969#0" expanded="false" />
+                <element signature="e#1817#1818#0" expanded="false" />
+                <element signature="e#1887#1888#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -104,8 +122,10 @@
         <entry file="file://$PROJECT_DIR$/src/main/java/ProcessingThread.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
-              <caret line="221" column="0" lean-forward="false" selection-start-line="221" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
-              <folding />
+              <caret line="222" column="0" lean-forward="false" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -151,9 +171,11 @@
         <option value="$PROJECT_DIR$/src/main/java/ProcessingThread.java" />
         <option value="$PROJECT_DIR$/src/main/java/ConfigFile.java" />
         <option value="$PROJECT_DIR$/src/main/java/ConfigFileObject.java" />
-        <option value="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" />
         <option value="$PROJECT_DIR$/src/main/java/helper/Logger.java" />
         <option value="$PROJECT_DIR$/src/main/java/DBHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/model/MagicData.java" />
+        <option value="$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" />
       </list>
     </option>
   </component>
@@ -640,7 +662,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3068404" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3277202" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32642487" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -705,7 +727,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -713,7 +738,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -728,7 +761,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -736,7 +772,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -751,7 +795,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -759,7 +806,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -774,7 +829,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -782,7 +840,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -797,7 +863,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -805,7 +874,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -820,7 +897,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -828,7 +908,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -843,7 +931,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -851,7 +942,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -866,7 +965,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -874,7 +976,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -889,7 +999,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -897,7 +1010,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -912,7 +1033,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -920,7 +1044,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -935,7 +1067,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="55" lean-forward="false" selection-start-line="5" selection-start-column="55" selection-end-line="5" selection-end-column="55" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -943,7 +1078,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -987,23 +1130,25 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="92" column="9" lean-forward="false" selection-start-line="92" selection-start-column="9" selection-end-line="92" selection-end-column="9" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#829#830#0" expanded="false" />
+            <element signature="e#868#869#0" expanded="false" />
+            <element signature="e#920#921#0" expanded="false" />
+            <element signature="e#968#969#0" expanded="false" />
+            <element signature="e#1817#1818#0" expanded="false" />
+            <element signature="e#1887#1888#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/ProcessingThread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
-          <caret line="221" column="0" lean-forward="false" selection-start-line="221" selection-start-column="0" selection-end-line="221" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/MagicData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="17" column="13" lean-forward="false" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-          <folding />
+          <caret line="222" column="0" lean-forward="false" selection-start-line="222" selection-start-column="0" selection-end-line="222" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1012,14 +1157,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ServeCreatARMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2518">
-          <caret line="70" column="7" lean-forward="false" selection-start-line="70" selection-start-column="7" selection-end-line="70" selection-end-column="7" />
           <folding />
         </state>
       </provider>
@@ -1059,12 +1196,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/DBHelper.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/model/MagicData.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1861">
-          <caret line="56" column="8" lean-forward="false" selection-start-line="56" selection-start-column="8" selection-end-line="56" selection-end-column="8" />
+        <state relative-caret-position="235">
+          <caret line="17" column="19" lean-forward="false" selection-start-line="17" selection-start-column="19" selection-end-line="17" selection-end-column="19" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="110" column="0" lean-forward="false" selection-start-line="102" selection-start-column="0" selection-end-line="111" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ServeCreatARMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3289">
+          <caret line="143" column="13" lean-forward="true" selection-start-line="143" selection-start-column="13" selection-end-line="143" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#method2#0;class#ServeCreatARMain#0" expanded="false" />
           </folding>
         </state>
       </provider>

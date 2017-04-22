@@ -75,7 +75,7 @@ public class DBHelper {
                    ("INSERT INTO markerandinformation values(?,?,?,?,?)");
 
            statement.setString(1, "pinball");
-           statement.setBytes(2, file_read(r));
+           statement.setBytes(2, r);
            statement.setBytes(3, r);
            statement.setBytes(4, r);
            statement.setBytes(5, r);

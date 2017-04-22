@@ -55,5 +55,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="wire-compiler-2.3.0-RC1-jar-with-dependencies" level="project" />
   </component>
 </module>

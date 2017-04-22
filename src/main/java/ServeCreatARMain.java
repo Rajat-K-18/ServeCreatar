@@ -17,6 +17,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 
 public class ServeCreatARMain {
@@ -30,8 +31,29 @@ public class ServeCreatARMain {
 
     public static void main(String[] args) throws Exception {
 
+        doTheIntitialLoading();
 
-        startServer(); //do need to see what happens when multiple devices access at the same time
+        System.out.print("Welcome to ServeCreatAR \n" +
+                "1.Start Server\n" +
+                "2.Load Database\n" +
+                "3.Do Configuratons \n" +
+                "4.Exit \n" +
+                "Please select one of the above options : ");
+
+        Scanner scanner = new Scanner(System.in);
+        int choice = scanner.nextInt();
+        scanner.close();
+        switch(choice){
+
+            case 1 : startServer();break;
+            case 2 : loadDatabase();break;
+            case 3 : goToSettings();break;
+            case 4 : System.exit(0);break;
+            default:System.out.print("\ninvalid option , please try again\n");
+
+        }
+
+      //  startServer(); //do need to see what happens when multiple devices access at the same time
         //FileRead r = new FileRead();
         //r.FileRead();
 
@@ -39,6 +61,36 @@ public class ServeCreatARMain {
         //method1();
 
         }
+
+        /* This function will be responsible for tasks such as loading the DBHelper
+           by first loading various configuratons from a configuration file
+           These configurations will have stuff such ip address of database , its user name
+           and password , and other project related settings
+         */
+
+    private static void doTheIntitialLoading() {
+
+        //find the serveCreatARconfig.xml file and load it
+        //if can't find , create a new one
+        //TODO : implement using jaxb
+    }
+
+    private static void goToSettings() {
+
+    }
+
+    private static void loadDatabase() {
+
+        System.out.print("\nEnter the absolute path of MagicContent folder :- \n" +
+                "(you may do so by looking at the properties of the folder) \n");
+
+        Scanner scanner =  new Scanner(System.in);
+        String magicDataFolderPath = scanner.next();
+        scanner.close();
+
+
+
+    }
 
     private static void method2() {
         String bookObject = "booknewcrop.jpg";

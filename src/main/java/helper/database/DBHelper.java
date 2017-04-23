@@ -38,6 +38,7 @@ public class DBHelper {
             try {
                 createNewDatabaseConnection();
                 setupDatabase();
+                createTable();
 
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -148,26 +149,35 @@ public class DBHelper {
 
     }
     public  static void setupDatabase(){
+
         try {
             mCreateDatabaseStatement = mDatabaseConnection.createStatement();
             String create_database_sql = "CREATE DATABASE IF NOT EXISTS creatar";
             mCreateDatabaseStatement.executeUpdate(create_database_sql);
-
-            mCreateDatabaseStatement = mDatabaseConnection.createStatement();
-            String use_database_sql = "USE creatar";
-            mCreateDatabaseStatement.executeUpdate(use_database_sql);
-
+            Logger.log(TAG,"created database if it wasn't there already");
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
+        try {
+            mCreateDatabaseStatement = mDatabaseConnection.createStatement();
+            String use_database_sql = "USE creatar";
+            mCreateDatabaseStatement.executeUpdate(use_database_sql);
+            Logger.log(TAG,"started using creatar database");
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+        }
+
+
+
     }
 
-    public  static void createTable(String tableName){
+    public  static void createTable(){
         try {
             mCreateTableStatement = mDatabaseConnection.createStatement();
 
-            String create_table_sql = "CREATE TABLE IF NOT EXISTS "+tableName +
+            String create_table_sql = "CREATE TABLE IF NOT EXISTS "+"markerandinformation" +
                     "(markername varchar(255)," +
                     "markernft LONGBLOB NOT NULL," +
                     "markerpng LONGBLOB NOT NULL," +

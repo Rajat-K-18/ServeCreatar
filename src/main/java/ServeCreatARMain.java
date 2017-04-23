@@ -8,10 +8,14 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 //import org.jcp.xml.dsig.internal.dom.Utils;
+import org.omg.PortableInterceptor.LOCATION_FORWARD;
 import org.opencv.core.*;
+import sun.rmi.runtime.Log;
 
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 
@@ -21,7 +25,7 @@ public class ServeCreatARMain {
     private static final String TAG = ServeCreatARMain.class.getSimpleName();
     private static java.awt.image.BufferedImage bufferedImage;
     private static DBHelper mDBHelper;
-
+    private static Scanner mScanner;
     // Compulsory statement to run opencv
     static{ System.loadLibrary(Core.NATIVE_LIBRARY_NAME); }
 
@@ -36,9 +40,7 @@ public class ServeCreatARMain {
                 "4.Exit \n" +
                 "Please select one of the above options : ");
 
-        Scanner scanner = new Scanner(System.in);
-        int choice = scanner.nextInt();
-        scanner.close();
+        int choice = mScanner.nextInt();
         switch(choice){
 
             case 1 : startServer();break;
@@ -66,6 +68,7 @@ public class ServeCreatARMain {
          */
     private static void closeOpenResources() {
         //TODO:implement it
+        mScanner.close(); //comment it if it is causing problems
 
     }
 
@@ -77,6 +80,7 @@ public class ServeCreatARMain {
 
     private static void doTheIntitialLoading() {
 
+        mScanner = new Scanner(System.in);
         mDBHelper = new DBHelper();
         //find the serveCreatARconfig.xml file and load it
         //if can't find , create a new one
@@ -98,37 +102,44 @@ public class ServeCreatARMain {
         System.out.print("\nEnter the absolute path of MagicContent folder :- \n" +
                 "(you may do so by looking at the properties of the folder) \n");
 
-
-        Scanner scanner =  new Scanner(System.in);
-        String magicDataFolderPath = scanner.next();
-        scanner.close();
+        String magicDataFolderPath = mScanner.next();
+        Logger.log(TAG , "path entered is :"+magicDataFolderPath);
 
         File magicDataFolderFile = new File(magicDataFolderPath);
+        magicDataFolderFile = new File("/home/kartik/Desktop/magicTest");
+        if(magicDataFolderFile!=null && magicDataFolderFile.isDirectory())Logger.log(TAG,magicDataFolderFile.getName()+ "is not null");
         loadDataBaseFromFolder(magicDataFolderFile);
     }
 
     private static void loadDataBaseFromFolder(File magicDataFolderFile) {
 
         for (File file : magicDataFolderFile.listFiles()){
-            insertMarker(file);
+            Logger.log(TAG,"currently working on "+file.getAbsolutePath());
+            insertMarkers(file);
         }
 
     }
 
-    private static void insertMarker(File markerFolderFile) {
+    private static void insertMarkers(File markerCollectionFolderfile) {
+        for(File file:markerCollectionFolderfile.listFiles()){
+            Logger.log(TAG,"currently working on "+file.getAbsolutePath());
+            insertMarker(file);
+        }
+    }
 
+    private static void insertMarker(File markerFolderFile) {
         byte[] markerEncodedData = null;
         MagicData.Information information = null;
         byte[] imageRawFileData = null;
         MagicData.Marker marker = null;
-
         try {
             for(File file:markerFolderFile.listFiles()){
-                if(file.getName().contentEquals("markerNFTData")){
-                    marker = getNFTMarkerFromFile(markerFolderFile);
-                     markerEncodedData = MagicData.Marker.ADAPTER.encode(marker);
+                Logger.log(TAG,"currently working on "+file.getAbsolutePath());
+                if(file.getName().toString().equals("markerNFTData")){
+                    marker = getNFTMarkerFromFile(file);
+                    markerEncodedData = MagicData.Marker.ADAPTER.encode(marker);
                 }
-                else if(file.getName().contentEquals("information")){
+                else if(file.getName().toString().equals("information")){
                      information = getMarkerInformationFromFile(file);
                 }
                 else if(file.getName().contains(".png") || file.getName().contains(".jpg")){
@@ -137,14 +148,18 @@ public class ServeCreatARMain {
                 else{
                     //TODO : to be decided
                 }
+            }
+
             mDBHelper.insertData(marker.markerName,
                     markerEncodedData ,
                     imageRawFileData,
                     information.obj.toByteArray(), // to be filled
                     information.mtl.toByteArray()); // to be filled
-                
-            }
+
+            Logger.log(TAG,"inserted marker data for "+markerFolderFile.getName());
+
         } catch (Exception e) {
+            Logger.log(TAG,"unable to inset marker data for "+markerFolderFile.getName());
             e.printStackTrace();
         }
 
@@ -159,7 +174,7 @@ public class ServeCreatARMain {
      */
     private static MagicData.Information getMarkerInformationFromFile(File informationFolderFile) throws IOException {
         byte[] objData = null , mtlData = null ;
-
+        List<MagicData.Images> informationImagesList = new ArrayList<MagicData.Images>();
         for(File file : informationFolderFile.listFiles()){
             if(file.getName().contains(".obj")){
                 objData = FileUtils.readFileToByteArray(file);
@@ -171,33 +186,40 @@ public class ServeCreatARMain {
                 //this will be decided later on
                 //if the need arises
             }
-            MagicData.Information information = new MagicData.Information.Builder()
-                                                .image(null)
-                                                .mtl(ByteString.of(mtlData))
-                                                .obj(ByteString.of(objData))
-                                                .build();
-            return information;
+
+
+
+        }
+        if(objData ==null  || mtlData ==null){
+            Logger.log(TAG,"unable to form information object for "+informationFolderFile.getName());
         }
 
-        //TODO: implement it
-        return null;
+        MagicData.Information information = new MagicData.Information.Builder()
+                .image(informationImagesList)
+                .mtl(ByteString.of(mtlData))
+                .obj(ByteString.of(objData))
+                .build();
+        return information;
+
     }
 
     private static MagicData.Marker getNFTMarkerFromFile(File markerNFTDataFolderFile) throws Exception {
         String markerName = null;
         byte[] isetData=null,fsetData=null,fset3Data =null;
         for (File file : markerNFTDataFolderFile.listFiles()){
-            if(file.getName().contains(".iset")){
-                markerName = file.getName().substring(0 ,//start index
+            Logger.log(TAG,"file names are "+file.getName());
+            if(file.getName().toString().contains(".iset")){
+                markerName = file.getName().toString().substring(0 ,//start index
                             file.getName().indexOf('.') //end index  -- TODO: check it should be reduced by 1
                         );
                 isetData = FileUtils.readFileToByteArray(file);
-            }else if(file.getName().contains(".fset")){
+            }else if(file.getName().toString().contains(".fset3")){
+                fset3Data = FileUtils.readFileToByteArray(file);
+            }else if(file.getName().toString().contains(".fset")){
                  fsetData = FileUtils.readFileToByteArray(file);
-            }else if(file.getName().contains(".fset3")){
-                 fset3Data = FileUtils.readFileToByteArray(file);
             }
         }
+
 
         if(markerName!=null && isetData !=null && fset3Data!=null && fsetData!=null){
             //this means marker data has been picked up

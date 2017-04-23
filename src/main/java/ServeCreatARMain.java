@@ -106,7 +106,7 @@ public class ServeCreatARMain {
         Logger.log(TAG , "path entered is :"+magicDataFolderPath);
 
         File magicDataFolderFile = new File(magicDataFolderPath);
-        magicDataFolderFile = new File("/home/kartik/Desktop/magicTest");
+       // magicDataFolderFile = new File("/home/kartik/Desktop/magicTest");
         if(magicDataFolderFile!=null && magicDataFolderFile.isDirectory())Logger.log(TAG,magicDataFolderFile.getName()+ "is not null");
         loadDataBaseFromFolder(magicDataFolderFile);
     }

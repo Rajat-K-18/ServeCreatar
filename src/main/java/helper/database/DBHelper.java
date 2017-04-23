@@ -21,7 +21,8 @@ public class DBHelper {
     static final String JDBC_driver = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/";
     static final String USERNAME = "root";
-    static final String PASSWORD = "root";
+    static final String PASSWORD = "dbsbb";
+
     private static final String TAG = DBHelper.class.getSimpleName();
     private static Connection mDatabaseConnection;
     private static ResultSet mMarkerResultSet = null;
@@ -36,6 +37,7 @@ public class DBHelper {
         if (mDatabaseConnection == null) {
             try {
                 createNewDatabaseConnection();
+                setupDatabase();
 
             } catch (SQLException e1) {
                 e1.printStackTrace();
@@ -59,7 +61,11 @@ public class DBHelper {
         }
     }
 
-    private static void createNewDatabaseConnection(String s) throws SQLException, ClassNotFoundException {
+    /* static counterpart of the above function
+    String argument is just there for making use of function overloading
+    Will be removed later on
+     */
+    private static void createNewDatabaseConnection(String unused) throws SQLException, ClassNotFoundException {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");//TODO:whats the use of this statement
@@ -89,7 +95,6 @@ public class DBHelper {
                     .build();
 
             byte[] r = MagicData.Marker.ADAPTER.encode(marker);
-
             File read_png = new File("pinball.jpg");
             byte[] l  = FileUtils.readFileToByteArray(read_png);
             insertData("pinball", r, l,r,r);
@@ -142,7 +147,7 @@ public class DBHelper {
 
 
     }
-    public  static void createUseDatabase(String dbName){
+    public  static void setupDatabase(){
         try {
             mCreateDatabaseStatement = mDatabaseConnection.createStatement();
             String create_database_sql = "CREATE DATABASE IF NOT EXISTS creatar";
@@ -174,7 +179,7 @@ public class DBHelper {
             e.printStackTrace();
         }
     }
-    public static void insertData(String markerName, byte[] markerEncodedData,byte[] markerPngData ,byte[] informationObj, byte[] informationMtl){
+    public static void insertData(String markerName, byte[] markerEncodedData,byte[] markerRawImageData ,byte[] informationObj, byte[] informationMtl){
 
 
         //TODO:see if i need to create a new mPreparedCreateStatement every time
@@ -182,7 +187,7 @@ public class DBHelper {
             mPreparedCreateStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?)");
             mPreparedCreateStatement.setString(1, markerName);
             mPreparedCreateStatement.setBytes(2, markerEncodedData);
-            mPreparedCreateStatement.setBytes(3, markerPngData);
+            mPreparedCreateStatement.setBytes(3, markerRawImageData);
             mPreparedCreateStatement.setBytes(4, informationObj);
             mPreparedCreateStatement.setBytes(5, informationMtl);
             mPreparedCreateStatement.executeUpdate();
@@ -206,6 +211,23 @@ public class DBHelper {
         f1.read(bytesArray);
         f1.close();
         return bytesArray;
+    }
+
+    public void closeResources(){
+        closeStatements();
+        closeConnection();
+    }
+
+    private void closeStatements() {
+        try {
+            mCreateDatabaseStatement.close();
+            mPreparedCreateStatement.close();
+            mCreateTableStatement.close();
+            Logger.log(TAG,"successfully closed database statements");
+        } catch (SQLException e) {
+            Logger.log(TAG,"error in closing statements");
+            e.printStackTrace();
+        }
     }
 
     public void closeConnection(){

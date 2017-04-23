@@ -1,15 +1,21 @@
+import helper.Logger;
+import helper.database.DBHelper;
 import model.MagicData;
 import okio.ByteString;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
+import sun.rmi.runtime.Log;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferByte;
 import java.io.*;
 import java.nio.ByteBuffer;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,11 +31,44 @@ public class ProcessingThread extends Thread{
     @Override
     public void run() {
         super.run();
+
+
+        DBHelper mDBHelper = new DBHelper();
+        ResultSet markerpngresultset = null;
+        markerpngresultset = mDBHelper.getMarkersResultSet();
+
+
+        Statement stmt = null;
+
+
+        markerpngresultset = mDBHelper.getMarkersResultSet();
+
+        Logger.log(TAG, "entering run");
         try {
-            recogniseImage(mData);
+            if(markerpngresultset!=null) {
+                while (markerpngresultset.next()) {
+                    //System.out.println(markerpngresultset.getString(1));
+                    byte[] temp = markerpngresultset.getBytes(1);
+                    System.out.println("size of temp is:"+temp.length );
+                    recogniseImage(mData,temp);
+
+                }
+                markerpngresultset.beforeFirst();
+               // //markerpngresultset.first();
+                //markerpngresultset.;
+                Logger.log(TAG, "Not able to iterate thought markerpngresult list");
+            }else{
+                Logger.log(TAG,"markerresultset is null1");
+                }
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return;
 
     }
@@ -40,25 +79,35 @@ public class ProcessingThread extends Thread{
 
     }
 
-    private  void recogniseImage(byte[] data) throws IOException {
-
+    private  void recogniseImage(byte[] data , byte[] markerPNGBytes) throws IOException {
+        // http://stackoverflow.com/questions/2699963/storing-result-set-into-an-array
         String bookObject = "bookish.jpg";
         String bookScene = "booknewcrop"+System.currentTimeMillis()+".jpg";
         //String bookScene = "booknewcrop.jpg";
         System.out.println("Started....");
         System.out.println("Loading images...");
-        Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
+        //Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
         //Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
 
-        BufferedImage temp = null;
+        if(markerPNGBytes == null){
+            System.out.println("markerPNGBytes is empty");
+        }
+        BufferedImage temp = null,temp2=null;
         try {
+            temp2 = ImageIO.read(new ByteArrayInputStream(markerPNGBytes));
             temp = ImageIO.read(new ByteArrayInputStream(data));
+            if ((temp == null) ){
+                System.out.println("Temp is empty");
+            }
+            else if(temp2 == null){
+                System.out.println("Temp2 is empty");
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Mat sceneImage = matify(temp);
-
+        Mat objectImage = matify(temp2);
 
         MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();
         FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
@@ -234,6 +283,9 @@ public class ProcessingThread extends Thread{
 
 
     public static Mat matify(BufferedImage im) {
+        if(im==null){
+            Logger.log(TAG,"matify input is null");
+        }
         // Convert INT to BYTE
         //im = new BufferedImage(im.getWidth(), im.getHeight(),BufferedImage.TYPE_3BYTE_BGR);
         // Convert bufferedimage to byte array

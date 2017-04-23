@@ -1,12 +1,9 @@
 //import com.sun.org.apache.xml.internal.serializer.utils.Utils;
-import com.sun.org.apache.xml.internal.serializer.utils.Utils;
 import helper.Logger;
 import helper.database.DBHelper;
 import model.MagicData;
 import okio.ByteString;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
@@ -17,9 +14,6 @@ import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
 
 
-import javax.imageio.ImageIO;
-import javax.swing.text.html.ImageView;
-import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -92,6 +86,12 @@ public class ServeCreatARMain {
         //find the serveCreatARconfig.xml file and load it
         //if can't find , create a new one
         //TODO : implement using jaxb
+
+
+        mDBHelper.loadMarkersFromDatabase();
+
+
+
     }
 
     private static void goToSettings() {
@@ -136,10 +136,11 @@ public class ServeCreatARMain {
                 }
             mDBHelper.insertData("put marker name here",
                     markerEncodedData ,
+                    null,
                     null, // to be filled
-                    null, // to be filled
-                    null //to be filled
-                        );
+                    null); // to be filled
+
+
 
             }
         } catch (Exception e) {

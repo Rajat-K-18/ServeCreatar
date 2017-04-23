@@ -3,7 +3,11 @@ import model.MagicData;
 
 import helper.Logger;
 import okio.ByteString;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+
 import java.io.*;
+
 import java.sql.*;
 
 
@@ -20,7 +24,10 @@ public class DBHelper {
     static final String PASSWORD = "root";
     private static final String TAG = DBHelper.class.getSimpleName();
     private static Connection mDatabaseConnection;
-
+    private static ResultSet mMarkerResultSet = null;
+    private static PreparedStatement mPreparedCreateStatement = null;
+    private static Statement mCreateDatabaseStatement = null;
+    private static Statement mCreateTableStatement = null;
 
     //byte[] bytesArray = new byte[10000];
 
@@ -29,6 +36,7 @@ public class DBHelper {
         if (mDatabaseConnection == null) {
             try {
                 createNewDatabaseConnection();
+
             } catch (SQLException e1) {
                 e1.printStackTrace();
             } catch (ClassNotFoundException e1) {
@@ -51,6 +59,19 @@ public class DBHelper {
         }
     }
 
+    private static void createNewDatabaseConnection(String s) throws SQLException, ClassNotFoundException {
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver");//TODO:whats the use of this statement
+            System.out.println("Connecting to database...");
+            mDatabaseConnection = DriverManager.getConnection(DB_URL, USERNAME, PASSWORD);
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+    }
+
 
     public static void main(String[] args) {
 
@@ -58,37 +79,9 @@ public class DBHelper {
 
 
         try {
+            createNewDatabaseConnection("its a useless string");
 
-            System.out.println("Creating database...");
-            stmt = mDatabaseConnection.createStatement();
-
-            String create_database_sql = "CREATE DATABASE IF NOT EXISTS creatar";
-            stmt.executeUpdate(create_database_sql);
-            System.out.println("Database created successfully...");
-
-
-            stmt = mDatabaseConnection.createStatement();
-            String use_database_sql = "USE creatar";
-            stmt.executeUpdate(use_database_sql);
-
-
-
-            stmt = mDatabaseConnection.createStatement();
-            String create_table_sql = "CREATE TABLE IF NOT EXISTS markerandinformation" +
-                    "(markername varchar(255)," +
-                    "markernft LONGBLOB NOT NULL," +
-                    "markerpng LONGBLOB NOT NULL," +
-                    "objfile LONGBLOB NOT NULL," +
-                    "mtlfile LONGBLOB NOT NULL," +
-                    "PRIMARY KEY(markername))";
-            stmt.executeUpdate(create_table_sql);
-            System.out.println("Tables are created");
-
-
-
-            //byte[] t = file_read("pinball.fset");
-            //t = file_read("pinball.iset");
-            MagicData.Marker marker = new MagicData.Marker.Builder()
+          MagicData.Marker marker = new MagicData.Marker.Builder()
                     .fset(ByteString.of(file_read("pinball.fset")))
                     .fset3(ByteString.of(file_read("pinball.fset3")))
                     .iset(ByteString.of(file_read("pinball.iset")))
@@ -97,18 +90,9 @@ public class DBHelper {
 
             byte[] r = MagicData.Marker.ADAPTER.encode(marker);
 
-
-            //String insert_table_sql = "INSERT INTO markerandinformation values(?,?,?,?,?)";
-            //String insert_table_sql = "INSERT INTO abc (name, number1) values (?,?)";
-/*
-
-            insertData("pinball",
-                    r,
-                    r,
-                    r,
-                    r);
-
-*/
+            File read_png = new File("pinball.jpg");
+            byte[] l  = FileUtils.readFileToByteArray(read_png);
+            insertData("pinball", r, l,r,r);
 
         } catch (
                 SQLException se)
@@ -132,26 +116,76 @@ public class DBHelper {
                 if (stmt != null)
                     stmt.close();
             } catch (SQLException se2) {
-            }// nothing we can do
+                }// nothing we can do
 
+
+
+        }
 
 
     }
 
+    public ResultSet getMarkersResultSet(){
+        return mMarkerResultSet;
     }
 
-    public  void insertData(String markerName, byte[] markerEncodedData, byte[] informationObj, byte[] informationMtl, byte[] informationImages){
+    public void loadMarkersFromDatabase(){
+        Statement stmt = null;
 
-        PreparedStatement preparedStatement = null;
-        //TODO:see if i need to create a new preparedstatement every time
         try {
-            preparedStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?)");
-            preparedStatement.setString(1, markerName);
-            preparedStatement.setBytes(2, markerEncodedData);
-            preparedStatement.setBytes(3, informationObj);
-            preparedStatement.setBytes(4, informationMtl);
-            preparedStatement.setBytes(5, informationImages);
-            preparedStatement.executeUpdate();
+            stmt = mDatabaseConnection.createStatement();
+            mMarkerResultSet = stmt.executeQuery("SELECT markerpng from markerandinformation");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            Logger.log(TAG, "Failed to get resultset of markerpngs");
+        }
+
+
+    }
+    public  static void createUseDatabase(String dbName){
+        try {
+            mCreateDatabaseStatement = mDatabaseConnection.createStatement();
+            String create_database_sql = "CREATE DATABASE IF NOT EXISTS creatar";
+            mCreateDatabaseStatement.executeUpdate(create_database_sql);
+
+            mCreateDatabaseStatement = mDatabaseConnection.createStatement();
+            String use_database_sql = "USE creatar";
+            mCreateDatabaseStatement.executeUpdate(use_database_sql);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public  static void createTable(String tableName){
+        try {
+            mCreateTableStatement = mDatabaseConnection.createStatement();
+
+            String create_table_sql = "CREATE TABLE IF NOT EXISTS "+tableName +
+                    "(markername varchar(255)," +
+                    "markernft LONGBLOB NOT NULL," +
+                    "markerpng LONGBLOB NOT NULL," +
+                    "objfile LONGBLOB NOT NULL," +
+                    "mtlfile LONGBLOB NOT NULL," +
+                    "PRIMARY KEY(markername))";
+            mCreateTableStatement.executeUpdate(create_table_sql);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void insertData(String markerName, byte[] markerEncodedData,byte[] markerPngData ,byte[] informationObj, byte[] informationMtl){
+
+
+        //TODO:see if i need to create a new mPreparedCreateStatement every time
+        try {
+            mPreparedCreateStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?)");
+            mPreparedCreateStatement.setString(1, markerName);
+            mPreparedCreateStatement.setBytes(2, markerEncodedData);
+            mPreparedCreateStatement.setBytes(3, markerPngData);
+            mPreparedCreateStatement.setBytes(4, informationObj);
+            mPreparedCreateStatement.setBytes(5, informationMtl);
+            mPreparedCreateStatement.executeUpdate();
 
             //TODO:check do we have to close the prepared statement and other statements
             //

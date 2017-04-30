@@ -2,12 +2,68 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ec37c1a-5f4f-4b20-a1d0-4569fd693196" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ServeCreatARMain$1.class" afterPath="$PROJECT_DIR$/target/classes/ServeCreatARMain$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/ServeCreatARMain.class" afterPath="$PROJECT_DIR$/target/classes/ServeCreatARMain.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/helper/database/DBHelper.class" afterPath="$PROJECT_DIR$/target/classes/helper/database/DBHelper.class" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/MyFile.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/book1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/book2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/book3.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bookish.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/booknew.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/booknewcrop.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/crop.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cube.mtl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cube.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/darkblue.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/f.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/full.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/haj.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hajcrop.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hs_err_pid23152.log" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/img.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/keepsilence.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/hajcrop.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/information/Ferrari_Modena_Spider.mtl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/information/Ferrari_Modena_Spider.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/information/Ferrari_Modena_Spider/artoolworks_plate.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/information/Ferrari_Modena_Spider/artoolworks_plate.sgi" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/markerNFTData/yellow1.fset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/markerNFTData/yellow1.fset3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_book/markerNFTData/yellow1.iset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/information/Ferrari_Modena_Spider.mtl" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/information/Ferrari_Modena_Spider.obj" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/information/Ferrari_Modena_Spider/artoolworks_plate.png" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/information/Ferrari_Modena_Spider/artoolworks_plate.sgi" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/markerNFTData/pinball.fset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/markerNFTData/pinball.fset3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/markerNFTData/pinball.iset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magicTest/markers/marker_pinball/pinball.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/matchoutput.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/img1491385270213.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/img1491385278302.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/img1491385282926.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/img1491385288168.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/matchoutput1491385270137.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/matchoutput1491385278224.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/matchoutput1491385282850.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/matchoutput1491385288092.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/other/img.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/other/matchoutput1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/other/matchoutput2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/other/outputImage.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/outputImage1491385270101.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/outputImage1491385278188.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/outputImage1491385282814.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/output/outputImage1491385288055.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/outputImage.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pinball.fset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pinball.fset3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pinball.iset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/pinball.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/book1 (copy).jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/book1.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/book2.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/women.jpg" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" afterPath="$PROJECT_DIR$/src/main/java/ServeCreatARMain.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java" afterPath="$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,11 +80,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="18">
               <caret line="114" column="68" lean-forward="false" selection-start-line="114" selection-start-column="68" selection-end-line="114" selection-end-column="68" />
-              <folding>
-                <element signature="e#6317#6335#0" expanded="true" />
-                <element signature="e#9328#9608#0" expanded="true" />
-                <element signature="e#9607#9608#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -38,11 +90,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
               <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="e#3754#3755#0" expanded="false" />
-                <element signature="e#3793#3794#0" expanded="false" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -66,10 +114,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="64" />
-    <option name="y" value="-11" />
-    <option name="width" value="1303" />
-    <option name="height" value="780" />
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1301" />
+    <option name="height" value="772" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -86,7 +134,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
@@ -100,63 +148,9 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ServeCreatar" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="java" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="helper" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="database" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -412,18 +406,19 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="64" y="-11" width="1303" height="780" extended-state="6" />
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Nl-Palette" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35575485" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -433,13 +428,12 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32884902" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
@@ -456,6 +450,30 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/ServeCreatARMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1746">
+          <caret line="114" column="68" lean-forward="false" selection-start-line="114" selection-start-column="68" selection-end-line="114" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/helper/database/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ServeCreatARMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2052">
+          <caret line="114" column="68" lean-forward="false" selection-start-line="114" selection-start-column="68" selection-end-line="114" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="108">
@@ -467,11 +485,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
           <caret line="114" column="68" lean-forward="false" selection-start-line="114" selection-start-column="68" selection-end-line="114" selection-end-column="68" />
-          <folding>
-            <element signature="e#6317#6335#0" expanded="true" />
-            <element signature="e#9328#9608#0" expanded="true" />
-            <element signature="e#9607#9608#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -479,11 +493,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#3754#3755#0" expanded="false" />
-            <element signature="e#3793#3794#0" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>

@@ -6,7 +6,6 @@ import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
-import sun.rmi.runtime.Log;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -22,11 +21,13 @@ import java.util.List;
 /**
  * Created by rajat on 30/3/17.
  */
-public class ProcessingThread extends Thread{
+public class ProcessingThread extends Thread implements Serializable{
     private static final String TAG = ProcessingThread.class.getSimpleName();
     public byte[] mData ;
     public MyWebSocketHandler mWebSocketHandler;
     public String mUniqueId;
+    private byte[] data;
+    private byte[] marker;
 
     @Override
     public void run() {
@@ -48,8 +49,9 @@ public class ProcessingThread extends Thread{
             if(markerpngresultset!=null) {
                 while (markerpngresultset.next()) {
                     //System.out.println(markerpngresultset.getString(1));
-                    byte[] temp = markerpngresultset.getBytes(1);
-                    System.out.println("size of temp is:"+temp.length );
+                    String temp = markerpngresultset.getString(1);
+                    //System.out.println("size of temp is:"+markerpngresultset.getByte(1));
+                    //MyMarkerDescriptor myKeyPoints = (MyMarkerDescriptor) markerpngresultset.getByte(1);
                     recogniseImage(mData,temp);
 
                 }
@@ -68,7 +70,6 @@ public class ProcessingThread extends Thread{
             e.printStackTrace();
         }
 
-
         return;
 
     }
@@ -79,42 +80,44 @@ public class ProcessingThread extends Thread{
 
     }
 
-    private  void recogniseImage(byte[] data , byte[] markerPNGBytes) throws IOException {
+    private  void recogniseImage(byte[] data , String markerPNGPath) throws IOException{
+
         // http://stackoverflow.com/questions/2699963/storing-result-set-into-an-array
-        String bookObject = "bookish.jpg";
-        String bookScene = "booknewcrop"+System.currentTimeMillis()+".jpg";
+
+        String bookObject = markerPNGPath;
+        //String bookScene = "booknewcrop"+System.currentTimeMillis()+".jpg";
         //String bookScene = "booknewcrop.jpg";
-        System.out.println("Started....");
-        System.out.println("Loading images...");
-        //Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
+
+        Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
         //Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
 
-        if(markerPNGBytes == null){
-            System.out.println("markerPNGBytes is empty");
-        }
         BufferedImage temp = null,temp2=null;
         try {
-            temp2 = ImageIO.read(new ByteArrayInputStream(markerPNGBytes));
+            //temp2 = ImageIO.read(new ByteArrayInputStream(markerPNGBytes));
             temp = ImageIO.read(new ByteArrayInputStream(data));
             if ((temp == null) ){
                 System.out.println("Temp is empty");
             }
-            else if(temp2 == null){
-                System.out.println("Temp2 is empty");
-            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         Mat sceneImage = matify(temp);
-        Mat objectImage = matify(temp2);
+        //Mat objectImage = matify(temp2);
+
+        FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
+
 
         MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();
-        FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
         System.out.println("Detecting key points...");
         featureDetector.detect(objectImage, objectKeyPoints);
+
         KeyPoint[] keypoints = objectKeyPoints.toArray();
-        System.out.println(keypoints);
+
+        //KeyPoint[] keypoints = getKeyPoints(data, markerPNGBytes);
+
+        //System.out.println(keypoints);
 
         MatOfKeyPoint objectDescriptors = new MatOfKeyPoint();
         DescriptorExtractor descriptorExtractor = DescriptorExtractor.create(DescriptorExtractor.SURF);
@@ -193,7 +196,7 @@ public class ProcessingThread extends Thread{
             System.out.println("Transforming object corners to scene corners...");
             Core.perspectiveTransform(obj_corners, scene_corners, homography);
 
-            Mat img = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
+            Mat img = Highgui.imread(markerPNGPath, Highgui.CV_LOAD_IMAGE_COLOR);
 
             Core.line(img, new Point(scene_corners.get(0, 0)), new Point(scene_corners.get(1, 0)), new Scalar(0, 255, 0), 4);
             Core.line(img, new Point(scene_corners.get(1, 0)), new Point(scene_corners.get(2, 0)), new Scalar(0, 255, 0), 4);
@@ -280,6 +283,53 @@ public class ProcessingThread extends Thread{
 
         System.out.println("Ended....");
     }
+
+    private static KeyPoint[] getKeyPoints(byte[] markerPNGBytes){
+
+        if(markerPNGBytes == null){
+            System.out.println("markerPNGBytes is empty");
+        }
+        BufferedImage temp = null,temp2=null;
+        try {
+            temp2 = ImageIO.read(new ByteArrayInputStream(markerPNGBytes));
+            if ((temp2 == null) ){
+                System.out.println("Temp is empty");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Mat objectImage = matify(temp2);
+
+        MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();
+        FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
+        //System.out.println("Detecting key points...");
+        featureDetector.detect(objectImage, objectKeyPoints);
+        KeyPoint[] keypoints = objectKeyPoints.toArray();
+        return keypoints;
+
+    }
+
+    private static KeyPoint[] getKeyPointsFromBytes(byte[] markerKeyPointsBytes) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(markerKeyPointsBytes);
+        ObjectInput in = null;
+        KeyPoint[] keyPoints = null;
+        try {
+            in = new ObjectInputStream(bis);
+            keyPoints = (KeyPoint[]) in.readObject();
+
+        } finally {
+            try {
+                if (in != null) {
+                    in.close();
+                }
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+        return keyPoints;
+    }
+
 
 
     public static Mat matify(BufferedImage im) {

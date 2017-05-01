@@ -8,9 +8,10 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 //import org.jcp.xml.dsig.internal.dom.Utils;
-import org.omg.PortableInterceptor.LOCATION_FORWARD;
 import org.opencv.core.*;
-import sun.rmi.runtime.Log;
+import org.opencv.features2d.FeatureDetector;
+import org.opencv.features2d.KeyPoint;
+import org.opencv.highgui.Highgui;
 
 
 import java.io.*;
@@ -135,8 +136,10 @@ public class ServeCreatARMain {
     private static void insertMarker(File markerFolderFile) {
         byte[] markerEncodedData = null;
         MagicData.Information information = null;
-        byte[] imageRawFileData = null;
+        String imagePngPath = null;
+        byte[] imageKeyPoints = null;
         MagicData.Marker marker = null;
+
         try {
             for(File file:markerFolderFile.listFiles()){
                 Logger.log(TAG,"currently working on "+file.getAbsolutePath());
@@ -148,7 +151,10 @@ public class ServeCreatARMain {
                      information = getMarkerInformationFromFile(file);
                 }
                 else if(file.getName().contains(".png") || file.getName().contains(".jpg")){
-                    imageRawFileData = FileUtils.readFileToByteArray(file);
+                    //image = FileUtils.readFileToByteArray(file);
+                    imagePngPath = file.getAbsolutePath().toString();
+                    String imagename = file.getName();
+                    imageKeyPoints = keyPointsToBytes(getKeyPoints(imagename));
                 }
                 else{
                     //TODO : to be decided
@@ -157,7 +163,8 @@ public class ServeCreatARMain {
 
             mDBHelper.insertData(marker.markerName,
                     markerEncodedData ,
-                    imageRawFileData,
+                    imageKeyPoints,
+                    imagePngPath,
                     information.obj.toByteArray(), // to be filled
                     information.mtl.toByteArray()); // to be filled
 
@@ -244,6 +251,35 @@ public class ServeCreatARMain {
                     + markerNFTDataFolderFile.getAbsolutePath());
         }
 
+    }
+    private static byte[] keyPointsToBytes(KeyPoint[] k) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutput out = null;
+        byte[] yourBytes = null;
+        try {
+            out = new ObjectOutputStream(bos);
+            out.writeObject(k);
+            out.flush();
+            yourBytes = bos.toByteArray();
+
+        } finally {
+            try {
+                bos.close();
+            } catch (IOException ex) {
+                // ignore close exception
+            }
+        }
+        return yourBytes;
+
+    }
+    private static KeyPoint[] getKeyPoints(String imgName){
+        Mat objectImage = Highgui.imread(imgName, Highgui.CV_LOAD_IMAGE_COLOR);
+        MatOfKeyPoint objectKeyPoints = new MatOfKeyPoint();
+        FeatureDetector featureDetector = FeatureDetector.create(FeatureDetector.ORB);
+        System.out.println("Detecting key points...");
+        featureDetector.detect(objectImage, objectKeyPoints);
+        KeyPoint[] keypoints = objectKeyPoints.toArray();
+        return keypoints;
     }
 
 

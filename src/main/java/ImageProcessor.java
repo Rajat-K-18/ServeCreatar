@@ -1,3 +1,4 @@
+import helper.database.DBHelper;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
@@ -37,11 +38,14 @@ public class ImageProcessor  {
 
  private static void recogniseImage(byte[] data) {
 
+
         String bookObject = "booknewcrop.jpg";
         String bookScene = "booknew"+System.currentTimeMillis()+".jpg";
 
         System.out.println("Started....");
         System.out.println("Loading images...");
+
+
         Mat objectImage = Highgui.imread(bookObject, Highgui.CV_LOAD_IMAGE_COLOR);
         //Mat sceneImage = Highgui.imread(bookScene, Highgui.CV_LOAD_IMAGE_COLOR);
 
@@ -127,6 +131,7 @@ public class ImageProcessor  {
             scnMatOfPoint2f.fromList(scenePoints);
 
             Mat homography = Calib3d.findHomography(objMatOfPoint2f, scnMatOfPoint2f, Calib3d.RANSAC, 3);
+
 
             Mat obj_corners = new Mat(4, 1, CvType.CV_32FC2);
             Mat scene_corners = new Mat(4, 1, CvType.CV_32FC2);

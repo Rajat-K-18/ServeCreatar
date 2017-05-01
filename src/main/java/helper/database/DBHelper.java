@@ -98,7 +98,7 @@ public class DBHelper {
             byte[] r = MagicData.Marker.ADAPTER.encode(marker);
             File read_png = new File("pinball.jpg");
             byte[] l  = FileUtils.readFileToByteArray(read_png);
-            insertData("pinball", r, l,r,r);
+
 
         } catch (
                 SQLException se)
@@ -140,7 +140,7 @@ public class DBHelper {
 
         try {
             stmt = mDatabaseConnection.createStatement();
-            mMarkerResultSet = stmt.executeQuery("SELECT markerpng from markerandinformation");
+            mMarkerResultSet = stmt.executeQuery("SELECT markerpngpath from markerandinformation");
         } catch (SQLException e) {
             e.printStackTrace();
             Logger.log(TAG, "Failed to get resultset of markerpngs");
@@ -180,7 +180,8 @@ public class DBHelper {
             String create_table_sql = "CREATE TABLE IF NOT EXISTS "+"markerandinformation" +
                     "(markername varchar(255)," +
                     "markernft LONGBLOB NOT NULL," +
-                    "markerpng LONGBLOB NOT NULL," +
+                    "markerkeypoints LONGBLOB NOT NULL," +
+                    "markerpngpath varchar(2000) NOT NULL," +
                     "objfile LONGBLOB NOT NULL," +
                     "mtlfile LONGBLOB NOT NULL," +
                     "PRIMARY KEY(markername))";
@@ -188,28 +189,6 @@ public class DBHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-    public static void insertData(String markerName, byte[] markerEncodedData,byte[] markerRawImageData ,byte[] informationObj, byte[] informationMtl){
-
-
-        //TODO:see if i need to create a new mPreparedCreateStatement every time
-        try {
-            mPreparedCreateStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?)");
-            mPreparedCreateStatement.setString(1, markerName);
-            mPreparedCreateStatement.setBytes(2, markerEncodedData);
-            mPreparedCreateStatement.setBytes(3, markerRawImageData);
-            mPreparedCreateStatement.setBytes(4, informationObj);
-            mPreparedCreateStatement.setBytes(5, informationMtl);
-            mPreparedCreateStatement.executeUpdate();
-
-            //TODO:check do we have to close the prepared statement and other statements
-            //
-        } catch (SQLException e) {
-            Logger.log(TAG,"failed to insert data");
-            e.printStackTrace();
-
-        }
-
     }
 
 
@@ -226,6 +205,30 @@ public class DBHelper {
     public void closeResources(){
         closeStatements();
         closeConnection();
+    }
+
+    public void insertData(String markerName, byte[] markerEncodedData,byte[] markerKeyPoints ,String markerPngPath,byte[] informationObj, byte[] informationMtl){
+
+
+        //TODO:see if i need to create a new mPreparedCreateStatement every time
+        try {
+            mPreparedCreateStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerandinformation values(?,?,?,?,?,?)");
+            mPreparedCreateStatement.setString(1, markerName);
+            mPreparedCreateStatement.setBytes(2, markerEncodedData);
+            mPreparedCreateStatement.setBytes(3, markerKeyPoints);
+            mPreparedCreateStatement.setString(4, markerPngPath);
+            mPreparedCreateStatement.setBytes(5, informationObj);
+            mPreparedCreateStatement.setBytes(6, informationMtl);
+            mPreparedCreateStatement.executeUpdate();
+
+            //TODO:check do we have to close the prepared statement and other statements
+            //
+        } catch (SQLException e) {
+            Logger.log(TAG,"failed to insert data");
+            e.printStackTrace();
+
+        }
+
     }
 
     private void closeStatements() {

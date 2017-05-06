@@ -216,7 +216,7 @@ public class ProcessingThread extends Thread implements Serializable{
             mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
 
             //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectFound");
-
+            doTest();
 
 
         } else {
@@ -229,59 +229,115 @@ public class ProcessingThread extends Thread implements Serializable{
             System.out.println("Object Not Found");
 
             /* Read the fset file */
-            File read_fset = new File("pinball.fset");
-            byte[] bytesArray1 = new byte[(int) read_fset.length()];
-            FileInputStream f1 = new FileInputStream(read_fset);
-            f1.read(bytesArray1);
-            f1.close();
 
-        /* Read the fset3 file */
-            File read_fset3 = new File("pinball.fset3");
-            byte[] bytesArray2 = new byte[(int) read_fset3.length()];
-            FileInputStream f2 = new FileInputStream(read_fset3);
-            f2.read(bytesArray2);
-            f2.close();
-
-        /* Read the iset file */
-            File read_iset = new File("pinball.iset");
-            byte[] bytesArray3 = new byte[(int) read_iset.length()];
-            FileInputStream f3 = new FileInputStream(read_iset);
-            f3.read(bytesArray3);
-            f3.close();
-
-
-            MagicData.Marker m = new MagicData.Marker.Builder()
-                    .markerName("pinball")
-                    .fset(ByteString.of(bytesArray1))
-                    .fset3(ByteString.of(bytesArray2))
-                    .iset(ByteString.of(bytesArray3))
-                    .build();
-
-            MagicData.Information i = new MagicData.Information.Builder()
-                    .mtl(ByteString.of(new byte[10]))
-                    .obj(ByteString.of(new byte[10]))
-                    .image(new LinkedList<MagicData.Images>())
-                    .build();
-
-            MagicData magicData = new MagicData.Builder()
-                    .marker(m)
-                    .information(i)
-                    .build();
-
-            //byte[] markerByteArray =  model.MagicData.Marker.ADAPTER.encode(m);
-
-            byte[] magicDataByteArray = MagicData.ADAPTER.encode(magicData);
-
-
-
-            //model.MagicData.Marker s = model.MagicData.Marker.ADAPTER.decode(markerByteArray);
-            //System.out.println("It is fest file:..."+s.fset.toString());
-
-            mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataByteArray));
 
         }
 
         System.out.println("Ended....");
+    }
+
+    private void doTest() throws IOException {
+        File read_fset = new File("magic/pinball.fset");
+        byte[] bytesArray1 = new byte[(int) read_fset.length()];
+        FileInputStream f1 = new FileInputStream(read_fset);
+        f1.read(bytesArray1);
+        f1.close();
+
+        /* Read the fset3 file */
+        File read_fset3 = new File("magic/pinball.fset3");
+        byte[] bytesArray2 = new byte[(int) read_fset3.length()];
+        FileInputStream f2 = new FileInputStream(read_fset3);
+        f2.read(bytesArray2);
+        f2.close();
+
+        /* Read the iset file */
+        File read_iset = new File("magic/pinball.iset");
+        byte[] bytesArray3 = new byte[(int) read_iset.length()];
+        FileInputStream f3 = new FileInputStream(read_iset);
+        f3.read(bytesArray3);
+        f3.close();
+
+        File read_obj = new File("magic/cube.obj");
+        byte[] bytesArray4 = new byte[(int) read_obj.length()];
+        FileInputStream f4 = new FileInputStream(read_obj);
+        f4.read(bytesArray4);
+        f4.close();
+
+        File read_mtl = new File("magic/cube.mtl");
+        byte[] bytesArray5 = new byte[(int) read_mtl.length()];
+        FileInputStream f5 = new FileInputStream(read_mtl);
+        f5.read(bytesArray5);
+        f5.close();
+
+        File read_image1 = new File("magic/images/booknewcrop.jpg");
+        byte[] bytesArray6 = new byte[(int) read_image1.length()];
+        FileInputStream f6 = new FileInputStream(read_image1);
+        f6.read(bytesArray6);
+        f6.close();
+
+        File read_image2 = new File("magic/images/keepsilence.jpg");
+        byte[] bytesArray7 = new byte[(int) read_image2.length()];
+        FileInputStream f7 = new FileInputStream(read_image2);
+        f7.read(bytesArray7);
+        f7.close();
+
+        File read_image3 = new File("magic/images/pinball.jpg");
+        byte[] bytesArray8 = new byte[(int) read_image3.length()];
+        FileInputStream f8 = new FileInputStream(read_image3);
+        f8.read(bytesArray8);
+        f8.close();
+
+
+
+        MagicData.Images images1 = new MagicData.Images.Builder()
+                .imagebytes(ByteString.of(bytesArray6))
+                .imageNameWithExtension("booknewcrop.jpg")
+                .build();
+
+        MagicData.Images images2 = new MagicData.Images.Builder()
+                .imagebytes(ByteString.of(bytesArray7))
+                .imageNameWithExtension("keepsilence.jpg")
+                .build();
+
+        MagicData.Images images3 = new MagicData.Images.Builder()
+                .imagebytes(ByteString.of(bytesArray8))
+                .imageNameWithExtension("pinball.jpg")
+                .build();
+
+
+        LinkedList<MagicData.Images> listOfImages = new LinkedList<MagicData.Images>();
+        listOfImages.add(images1);
+        listOfImages.add(images2);
+        listOfImages.add(images3);
+
+
+        MagicData.Marker m = new MagicData.Marker.Builder()
+                .markerName("pinball")
+                .fset(ByteString.of(bytesArray1))
+                .fset3(ByteString.of(bytesArray2))
+                .iset(ByteString.of(bytesArray3))
+                .build();
+
+        MagicData.Information i = new MagicData.Information.Builder()
+                .mtl(ByteString.of(bytesArray4))
+                .obj(ByteString.of(bytesArray5))
+                .image(listOfImages)
+                .build();
+
+        MagicData magicData = new MagicData.Builder()
+                .marker(m)
+                .information(i)
+                .build();
+
+        //byte[] markerByteArray =  model.MagicData.Marker.ADAPTER.encode(m);
+
+        byte[] magicDataByteArray = MagicData.ADAPTER.encode(magicData);
+
+
+        //model.MagicData.Marker s = model.MagicData.Marker.ADAPTER.decode(markerByteArray);
+        //System.out.println("It is fest file:..."+s.fset.toString());
+
+        mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataByteArray));
     }
 
     private static KeyPoint[] getKeyPoints(byte[] markerPNGBytes){

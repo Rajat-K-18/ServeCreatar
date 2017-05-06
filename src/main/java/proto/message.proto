@@ -21,6 +21,7 @@ message model.MagicData
 
 	message Images{
 		required bytes imagebytes = 1;
+		required string imageNameWithExtension = 2;
 	}	
 }
 

@@ -32,6 +32,8 @@ public class ServeCreatARMain {
 
     public static void main(String[] args) throws Exception {
 
+
+
         doTheIntitialLoading();
 
         System.out.print("Welcome to ServeCreatAR \n" +

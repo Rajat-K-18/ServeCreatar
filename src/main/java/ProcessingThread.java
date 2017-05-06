@@ -58,7 +58,7 @@ public class ProcessingThread extends Thread implements Serializable{
                 markerpngresultset.beforeFirst();
                // //markerpngresultset.first();
                 //markerpngresultset.;
-                Logger.log(TAG, "Not able to iterate thought markerpngresult list");
+                //Logger.log(TAG, "Not able to iterate thought markerpngresult list");
             }else{
                 Logger.log(TAG,"markerresultset is null1");
                 }
@@ -216,11 +216,11 @@ public class ProcessingThread extends Thread implements Serializable{
             mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
 
             //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectFound");
-            doTest();
 
 
         } else {
             //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());
+            doTest();
 
 
 

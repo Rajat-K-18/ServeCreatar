@@ -35,23 +35,36 @@ public class ServeCreatARMain {
 
 
         doTheIntitialLoading();
+        try {
+            System.out.print("Welcome to ServeCreatAR \n" +
+                    "1.Start Server\n" +
+                    "2.Load Database\n" +
+                    "3.Do Configuratons \n" +
+                    "4.Exit \n" +
+                    "Please select one of the above options : ");
 
-        System.out.print("Welcome to ServeCreatAR \n" +
-                "1.Start Server\n" +
-                "2.Load Database\n" +
-                "3.Do Configuratons \n" +
-                "4.Exit \n" +
-                "Please select one of the above options : ");
+            int choice = mScanner.nextInt();
+            switch (choice) {
 
-        int choice = mScanner.nextInt();
-        switch(choice){
+                case 1:
+                    startServer();
+                    break;
+                case 2:
+                    loadDatabase();
+                    break;
+                case 3:
+                    goToSettings();
+                    break;
+                case 4:
+                    System.exit(0);
+                    break;
+                default:
+                    System.out.print("\ninvalid option , please try again\n");
 
-            case 1 : startServer();break;
-            case 2 : loadDatabase();break;
-            case 3 : goToSettings();break;
-            case 4 : System.exit(0);break;
-            default:System.out.print("\ninvalid option , please try again\n");
+            }
 
+        }catch (Exception e){
+            main(new String[]{});
         }
         
         closeOpenResources();

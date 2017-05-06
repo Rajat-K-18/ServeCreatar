@@ -215,21 +215,12 @@ public class ProcessingThread extends Thread implements Serializable{
 
             mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
 
-            //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectFound");
-
-
         } else {
             //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());
             doTest();
-
-
-
             //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectNOTTTTTTTTTTTTTTTFound");
             //System.out.println(TAG+":"+mWebSocketHandler.getSession().getRemoteAddress());
             System.out.println("Object Not Found");
-
-            /* Read the fset file */
-
 
         }
 

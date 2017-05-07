@@ -151,9 +151,12 @@ public class ServeCreatARMain {
     private static void insertMarker(File markerFolderFile) {
         byte[] markerEncodedData = null;
         MagicData.Information information = null;
-        String imagePngPath = null;
+        String markerImagePngPath = null;
         byte[] imageKeyPoints = null;
         MagicData.Marker marker = null;
+
+        String infoImagePath = null;
+        String infoImageName = null;
 
         try {
             for(File file:markerFolderFile.listFiles()){
@@ -164,24 +167,47 @@ public class ServeCreatARMain {
                 }
                 else if(file.getName().toString().equals("information")){
                      information = getMarkerInformationFromFile(file);
+
                 }
                 else if(file.getName().contains(".png") || file.getName().contains(".jpg")){
                     //image = FileUtils.readFileToByteArray(file);
-                    imagePngPath = file.getAbsolutePath().toString();
-                    String imagename = file.getName();
+                    markerImagePngPath = file.getAbsolutePath().toString();
+                    String imagename = getImageName(file.getName());
                     imageKeyPoints = keyPointsToBytes(getKeyPoints(imagename));
                 }
                 else{
                     //TODO : to be decided
                 }
             }
+            if (mDBHelper == null){
+                Logger.log(TAG,"mDBHelper is null");
+            }
+
 
             mDBHelper.insertData(marker.markerName,
                     markerEncodedData ,
                     imageKeyPoints,
-                    imagePngPath,
+                    markerImagePngPath,
                     information.obj.toByteArray(), // to be filled
                     information.mtl.toByteArray()); // to be filled
+
+            for(File file:markerFolderFile.listFiles()){
+                if(file.getName().toString().equals("information")){
+                    for(File f:file.listFiles()){
+                        if(f.getName().toString().equals("images")){
+                            for(File imageFile:f.listFiles()) {
+                                System.out.println("************Image name is ::");
+                                mDBHelper.insertDataImageTable(
+                                        marker.markerName,
+                                        imageFile.getAbsolutePath(),
+                                        getImageName(imageFile.getName())
+                                );
+                            }
+                        }
+                    }
+                }
+            }
+
 
             Logger.log(TAG,"inserted marker data for "+markerFolderFile.getName());
 
@@ -199,6 +225,14 @@ public class ServeCreatARMain {
     2) .mtl file
     3) .png images
      */
+
+    private static String getImageName(String imageName){
+        int index = imageName.indexOf(".");
+        String name = imageName.substring(0,index);
+
+        return name;
+    }
+
     private static MagicData.Information getMarkerInformationFromFile(File informationFolderFile) throws IOException {
         byte[] objData = null , mtlData = null ;
         List<MagicData.Images> informationImagesList = new ArrayList<MagicData.Images>();

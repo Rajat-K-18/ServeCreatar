@@ -177,7 +177,7 @@ public class DBHelper {
         try {
             mCreateTableStatement = mDatabaseConnection.createStatement();
 
-            String create_table_sql = "CREATE TABLE IF NOT EXISTS "+"markerandinformation" +
+            String create_table_sql1 = "CREATE TABLE IF NOT EXISTS "+"markerandinformation" +
                     "(markername varchar(255)," +
                     "markernft LONGBLOB NOT NULL," +
                     "markerkeypoints LONGBLOB NOT NULL," +
@@ -185,7 +185,15 @@ public class DBHelper {
                     "objfile LONGBLOB NOT NULL," +
                     "mtlfile LONGBLOB NOT NULL," +
                     "PRIMARY KEY(markername))";
-            mCreateTableStatement.executeUpdate(create_table_sql);
+            mCreateTableStatement.executeUpdate(create_table_sql1);
+
+            String create_table_sql2 = "CREATE TABLE IF NOT EXISTS "+"markerinfoimages" +
+                    "(markername varchar(255) NOT NULL," +
+                    "imagepath varchar(2000) NOT NULL," +
+                    "imagename varchar(255) NOT NULL," +
+                    "FOREIGN KEY(markername) REFERENCES markerandinformation(markername)" +
+                    ")";
+            mCreateTableStatement.executeUpdate(create_table_sql2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -230,6 +238,20 @@ public class DBHelper {
         }
 
     }
+    public void insertDataImageTable(String markerName, String imagePath, String imageName){
+
+        try {
+            mPreparedCreateStatement = mDatabaseConnection.prepareStatement("INSERT INTO markerinfoimages values(?,?,?)");
+            mPreparedCreateStatement.setString(1,markerName);
+            mPreparedCreateStatement.setString(2,imagePath);
+            mPreparedCreateStatement.setString(3,imageName);
+            mPreparedCreateStatement.executeUpdate();
+        } catch (SQLException e) {
+            Logger.log(TAG,"failed to insert data in table2");
+            e.printStackTrace();
+        }
+    }
+
 
     private void closeStatements() {
         try {

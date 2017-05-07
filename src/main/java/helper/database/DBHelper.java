@@ -9,8 +9,7 @@ import org.apache.commons.io.IOUtils;
 import java.io.*;
 
 import java.sql.*;
-
-
+import java.util.LinkedList;
 
 
 /**
@@ -208,6 +207,88 @@ public class DBHelper {
         f1.read(bytesArray);
         f1.close();
         return bytesArray;
+    }
+
+    public MagicData getMagicData(String markerPngPath) throws IOException {
+        Statement stmt1 = null;
+        Statement stmt2 = null;
+        ResultSet markerAndInformationResultSet;
+        ResultSet markerInfoImagesResultSet;
+        MagicData magicData = null;
+
+        try {
+            stmt1 = mDatabaseConnection.createStatement();
+            markerAndInformationResultSet = stmt1.executeQuery
+                    ("SELECT *" +
+                            "FROM markerandinformation m" +
+                            " m.markerpngpath=" + markerPngPath + "");
+
+
+            MagicData.Marker marker = MagicData.Marker.ADAPTER.decode(
+                    markerAndInformationResultSet.getBytes(MarkerAndInformationTable.COLUMN_MARKER_NFT_INDEX));
+
+            String markerName = marker.markerName;
+
+            stmt2 = mDatabaseConnection.createStatement();
+            markerInfoImagesResultSet = stmt2.executeQuery
+                    ("SELECT *" +
+                            "FROM markerinfoimages m" +
+                            " WHERE markername=" + markerName + "");
+
+
+            LinkedList<MagicData.Images> images = new LinkedList<MagicData.Images>();
+            while (markerInfoImagesResultSet.next()) {
+                MagicData.Images image = new MagicData.Images.Builder().
+                        imageNameWithExtension(
+                                markerInfoImagesResultSet.getString(
+                                        MarkerInfoImagesTable.COLUMN_IMAGE_NAME_WITH_EXTENSION_INDEX
+                                )
+                        ).
+                        imagebytes(
+                                ByteString.of(getFileBytesFromPath(
+                                        markerInfoImagesResultSet.getString(
+                                                MarkerInfoImagesTable.COLUMN_IMAGE_PATH_INDEX
+                                        )
+                                ))
+                        )
+                        .build();
+
+                /////////////////////////
+                images.add(image);
+            }
+
+
+
+
+            MagicData.Information information = new MagicData.Information.Builder().
+                    mtl(
+                            ByteString.of(
+                                    markerAndInformationResultSet.getByte(MarkerAndInformationTable.COLUMN_MARKER_MTL_INDEX)
+                            )
+                    ).
+                    obj(
+                            ByteString.of(
+                                    markerAndInformationResultSet.getBytes(MarkerAndInformationTable.COLUMN_MARKER_OBJ_FILE_INDEX)
+                            )
+                    ).
+                    image(images).
+                    build();
+
+            magicData = new MagicData.Builder()
+                    .marker(marker)
+                    .information(information)
+                    .build();
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return  magicData;
+    }
+
+    private byte[] getFileBytesFromPath(String path) {
+        //TODO to be implemented
+        return null;
     }
 
     public void closeResources(){

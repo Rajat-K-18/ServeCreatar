@@ -10,7 +10,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /home/rajat/Documents/extra_Server_creatar/pinball.jpg
+map_Kd texture/pinball.jpg
 
 newmtl left
 Ns 96.078431
@@ -21,7 +21,7 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /home/rajat/Documents/extra_Server_creatar/keepsilence.jpg
+map_Kd texture/keepsilence.jpg
 
 newmtl right
 Ns 96.078431
@@ -42,4 +42,4 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.000000
 d 1.000000
 illum 2
-map_Kd /home/rajat/Documents/extra_Server_creatar/booknewcrop.jpg
+map_Kd texture/booknewcrop.jpg

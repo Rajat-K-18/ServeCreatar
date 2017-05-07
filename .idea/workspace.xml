@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0ec37c1a-5f4f-4b20-a1d0-4569fd693196" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/FileRead.java" afterPath="$PROJECT_DIR$/src/main/java/FileRead.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magic/pinball.fset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magic/pinball.fset3" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magic/pinball.iset" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/magic/pinball.jpg" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magic/cube.mtl" afterPath="$PROJECT_DIR$/magic/cube.mtl" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/magic/cube.obj" afterPath="$PROJECT_DIR$/magic/cube.obj" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />

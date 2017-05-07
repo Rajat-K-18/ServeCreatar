@@ -32,21 +32,21 @@ public  class FileRead {
     }
 
     public static void loadSomeTestMarkerFiles() throws IOException {
-        File read_fset = new File("magic/pinball.fset");
+        File read_fset = new File("magic/yellow2.fset");
          fsetByteArray = new byte[(int) read_fset.length()];
         FileInputStream f1 = new FileInputStream(read_fset);
         f1.read(fsetByteArray);
         f1.close();
 
         /* Read the fset3 file */
-        File read_fset3 = new File("magic/pinball.fset3");
+        File read_fset3 = new File("magic/yellow2.fset3");
         fset3ByteArray = new byte[(int) read_fset3.length()];
         FileInputStream f2 = new FileInputStream(read_fset3);
         f2.read(fset3ByteArray);
         f2.close();
 
         /* Read the iset file */
-        File read_iset = new File("magic/pinball.iset");
+        File read_iset = new File("magic/yellow2.iset");
         isetByteArray = new byte[(int) read_iset.length()];
         FileInputStream f3 = new FileInputStream(read_iset);
         f3.read(isetByteArray);
@@ -109,7 +109,7 @@ public  class FileRead {
 
 
         MagicData.Marker m = new MagicData.Marker.Builder()
-                .markerName("pinball")
+                .markerName("yellow2")
                 .fset(ByteString.of(fsetByteArray))
                 .fset3(ByteString.of(fset3ByteArray))
                 .iset(ByteString.of(isetByteArray))

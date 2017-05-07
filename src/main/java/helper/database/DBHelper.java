@@ -21,7 +21,7 @@ public class DBHelper {
     static final String JDBC_driver = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost/";
     static final String USERNAME = "root";
-    static final String PASSWORD = "dbsbb";
+    static final String PASSWORD = "root";
 
     private static final String TAG = DBHelper.class.getSimpleName();
     private static Connection mDatabaseConnection;

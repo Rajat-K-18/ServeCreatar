@@ -1,5 +1,6 @@
 import helper.Logger;
 import helper.database.DBHelper;
+import model.MagicData;
 import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
@@ -27,6 +28,7 @@ public class ProcessingThread extends Thread implements Serializable{
     private byte[] data;
     private byte[] marker;
     private FileRead mFileRead     ;
+    private helper.database.DBHelper mDBHelper;
 
     @Override
     public void run() {
@@ -73,9 +75,10 @@ public class ProcessingThread extends Thread implements Serializable{
 
     }
 
-    ProcessingThread(byte[] data, MyWebSocketHandler mWebSocketHandler, String mUniqueId){
+    ProcessingThread(byte[] data, MyWebSocketHandler mWebSocketHandler, String mUniqueId,DBHelper dbHelper){
         mData=data;
         this.mWebSocketHandler = mWebSocketHandler;
+        mDBHelper = dbHelper;
 
     }
 
@@ -214,6 +217,9 @@ public class ProcessingThread extends Thread implements Serializable{
 
             mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
 
+            MagicData magicData = mDBHelper.getMagicData(markerPNGPath);
+            byte[] magicDataBytes = MagicData.ADAPTER.encode(magicData);
+            mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataBytes));
         } else {
             //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());
             System.out.println("Object Not Found");

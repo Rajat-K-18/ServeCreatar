@@ -20,10 +20,12 @@ public class ImageProcessor  {
 
     private MyWebSocketHandler mWebSocketHandler;
     private String mUniqueId ;
+    private DBHelper mDBHelper;
 
-    public ImageProcessor(String mUniqueId, MyWebSocketHandler myWebSocketHandler)  {
+    public ImageProcessor(String mUniqueId, MyWebSocketHandler myWebSocketHandler, DBHelper dbhelper)  {
         mWebSocketHandler = myWebSocketHandler;
         this.mUniqueId = mUniqueId;
+        mDBHelper = dbhelper;
     }
 
     // Convert image to Mat
@@ -31,7 +33,7 @@ public class ImageProcessor  {
 
 
     public  void processImage( byte[] data) {
-        ProcessingThread processingThread = new ProcessingThread(data,mWebSocketHandler,mUniqueId);
+        ProcessingThread processingThread = new ProcessingThread(data,mWebSocketHandler,mUniqueId,mDBHelper);
         processingThread.run();
 
     }

@@ -1,13 +1,10 @@
+import helper.database.DBHelper;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.*;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.HashMap;
-import java.util.zip.Deflater;
-import java.util.zip.DeflaterOutputStream;
 
 @WebSocket
 public class MyWebSocketHandler  {
@@ -15,8 +12,9 @@ public class MyWebSocketHandler  {
     public final static HashMap<String, MyWebSocketHandler> mSockets = new HashMap<String, MyWebSocketHandler>();
     private static final String TAG = MyWebSocketHandler.class.getSimpleName();
     private String mUniqueId;
+    private DBHelper mDBHelper;
 
-        private String getMyUniqueId() {
+    private String getMyUniqueId() {
             // unique ID from this class' hash code
             return Integer.toHexString(this.hashCode());
         }
@@ -59,12 +57,12 @@ public class MyWebSocketHandler  {
         @OnWebSocketConnect
         public void onConnect(Session session) {
             this.mSession = session;
-
+            mDBHelper = new DBHelper();
             // this unique ID
             this.mUniqueId = this.getMyUniqueId();
             // map this unique ID to this connection
             MyWebSocketHandler.mSockets.put(this.mUniqueId, this);
-            mImageProcessor=new ImageProcessor(mUniqueId,this);
+            mImageProcessor=new ImageProcessor(mUniqueId,this, mDBHelper);
             this.mSession = session;
             System.out.println("Connect: " + session.getRemoteAddress().getAddress());
             try {

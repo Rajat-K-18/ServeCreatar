@@ -5,6 +5,7 @@ import org.opencv.calib3d.Calib3d;
 import org.opencv.core.*;
 import org.opencv.features2d.*;
 import org.opencv.highgui.Highgui;
+import sun.rmi.runtime.Log;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -40,6 +41,7 @@ public class ProcessingThread extends Thread implements Serializable{
         markerpngresultset = mDBHelper.getMarkersResultSet();
 
 
+
         Statement stmt = null;
 
 
@@ -51,16 +53,18 @@ public class ProcessingThread extends Thread implements Serializable{
                 while (markerpngresultset.next()) {
                     //System.out.println(markerpngresultset.getString(1));
                     String temp = markerpngresultset.getString(1);
+                    Logger.log(TAG,"temp is :"+temp);
                     //System.out.println("size of temp is:"+markerpngresultset.getByte(1));
                     //MyMarkerDescriptor myKeyPoints = (MyMarkerDescriptor) markerpngresultset.getByte(1);
                     recogniseImage(mData,temp);
 
                 }
-                markerpngresultset.beforeFirst();
+               markerpngresultset.beforeFirst();
                // //markerpngresultset.first();
                 //markerpngresultset.;
                 //Logger.log(TAG, "Not able to iterate thought markerpngresult list");
-            }else{
+            }
+            else{
                 Logger.log(TAG,"markerresultset is null1");
                 }
 
@@ -152,7 +156,7 @@ public class ProcessingThread extends Thread implements Serializable{
         System.out.println("Calculating good match list...");
         LinkedList<DMatch> goodMatchesList = new LinkedList<DMatch>();
 
-        float nndrRatio = 0.5f;
+        float nndrRatio = 0.6f;
 
         for (int i = 0; i < matches.size(); i++) {
             MatOfDMatch matofDMatch = matches.get(i);
@@ -165,7 +169,7 @@ public class ProcessingThread extends Thread implements Serializable{
 
             }
         }
-
+        Logger.log(TAG,"good matches list sizeis: "+goodMatchesList.size());
         if (goodMatchesList.size() >= 7) {
             System.out.println("Object Found!!!");
 
@@ -216,14 +220,16 @@ public class ProcessingThread extends Thread implements Serializable{
             Highgui.imwrite("output//img"+System.currentTimeMillis()+".jpg", img);
 
             mWebSocketHandler.sendClient("OBJECT  FOUND!!!!!!!!!"+System.currentTimeMillis());
+            Logger.log(TAG,"foto matched with :"+markerPNGPath);
 
             MagicData magicData = mDBHelper.getMagicData(markerPNGPath);
             byte[] magicDataBytes = MagicData.ADAPTER.encode(magicData);
             mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataBytes));
-        } else {
+        }
+        else {
             //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());
             System.out.println("Object Not Found");
-            doTest();
+            //doTest();
             //mWebSocketHandler.onMessage(System.currentTimeMillis()+":"+"ObjectNOTTTTTTTTTTTTTTTFound");
             //System.out.println(TAG+":"+mWebSocketHandler.getSession().getRemoteAddress());
 

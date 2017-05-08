@@ -220,9 +220,10 @@ public class DBHelper {
             stmt1 = mDatabaseConnection.createStatement();
             markerAndInformationResultSet = stmt1.executeQuery
                     ("SELECT *" +
-                            "FROM markerandinformation m" +
-                            " m.markerpngpath=" + markerPngPath + "");
+                            "FROM markerandinformation where" +
+                            " markerpngpath=" + "\'"+markerPngPath + "\'");
 
+            markerAndInformationResultSet.next();
 
             MagicData.Marker marker = MagicData.Marker.ADAPTER.decode(
                     markerAndInformationResultSet.getBytes(MarkerAndInformationTable.COLUMN_MARKER_NFT_INDEX));
@@ -232,8 +233,8 @@ public class DBHelper {
             stmt2 = mDatabaseConnection.createStatement();
             markerInfoImagesResultSet = stmt2.executeQuery
                     ("SELECT *" +
-                            "FROM markerinfoimages m" +
-                            " WHERE markername=" + markerName + "");
+                            "FROM markerinfoimages" +
+                            " WHERE markername=" + "\'"+markerName+"\'" + "");
 
 
             LinkedList<MagicData.Images> images = new LinkedList<MagicData.Images>();
@@ -256,6 +257,7 @@ public class DBHelper {
                 /////////////////////////
                 images.add(image);
             }
+
 
 
 
@@ -288,7 +290,18 @@ public class DBHelper {
 
     private byte[] getFileBytesFromPath(String path) {
         //TODO to be implemented
-        return null;
+        File readfile = new File(path);
+        byte[] byteArray = new byte[(int) readfile.length()];
+
+        try {
+            FileInputStream f1 = new FileInputStream(readfile);
+            f1.read(byteArray);
+            f1.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return byteArray;
     }
 
     public void closeResources(){

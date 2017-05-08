@@ -32,84 +32,85 @@ public  class FileRead {
     }
 
     public static void loadSomeTestMarkerFiles() throws IOException {
-        File read_fset = new File("magic/yellow2.fset");
+        File read_fset = new File("magic/keepsilence.fset");
          fsetByteArray = new byte[(int) read_fset.length()];
         FileInputStream f1 = new FileInputStream(read_fset);
         f1.read(fsetByteArray);
         f1.close();
 
         /* Read the fset3 file */
-        File read_fset3 = new File("magic/yellow2.fset3");
+        File read_fset3 = new File("magic/keepsilence.fset3");
         fset3ByteArray = new byte[(int) read_fset3.length()];
         FileInputStream f2 = new FileInputStream(read_fset3);
         f2.read(fset3ByteArray);
         f2.close();
 
         /* Read the iset file */
-        File read_iset = new File("magic/yellow2.iset");
+        File read_iset = new File("magic/keepsilence.iset");
         isetByteArray = new byte[(int) read_iset.length()];
         FileInputStream f3 = new FileInputStream(read_iset);
         f3.read(isetByteArray);
         f3.close();
 
-        File read_obj = new File("magic/cube.obj");
+        File read_obj = new File("magic/keepsilence.obj");
          objByteArray = new byte[(int) read_obj.length()];
         FileInputStream f4 = new FileInputStream(read_obj);
         f4.read(objByteArray);
         f4.close();
 
-        File read_mtl = new File("magic/cube.mtl");
+        File read_mtl = new File("magic/keepsilence.mtl");
          mtlByteArray = new byte[(int) read_mtl.length()];
         FileInputStream f5 = new FileInputStream(read_mtl);
         f5.read(mtlByteArray);
         f5.close();
 
-        File read_image1 = new File("magic/images/booknewcrop.jpg");
+        File read_image1 = new File("magic/texture/artoolworks_plate.png");
          image1ByteArray = new byte[(int) read_image1.length()];
         FileInputStream f6 = new FileInputStream(read_image1);
         f6.read(image1ByteArray);
         f6.close();
 
-        File read_image2 = new File("magic/images/keepsilence.jpg");
+        File read_image2 = new File("magic/texture/artoolworks_plate.sgi");
          image2ByteArray = new byte[(int) read_image2.length()];
         FileInputStream f7 = new FileInputStream(read_image2);
         f7.read(image2ByteArray);
         f7.close();
 
-        File read_image3 = new File("magic/images/pinball.jpg");
+        /*
+        File read_image3 = new File("magic/texture/pinball.jpg");
          image3ByteArray = new byte[(int) read_image3.length()];
         FileInputStream f8 = new FileInputStream(read_image3);
         f8.read(image3ByteArray);
         f8.close();
-
+        */
     }
 
     public static void loadSampleMagicData(){
 
         MagicData.Images images1 = new MagicData.Images.Builder()
                 .imagebytes(ByteString.of(image1ByteArray))
-                .imageNameWithExtension("booknewcrop.jpg")
+                .imageNameWithExtension("artoolworks_plate.png")
                 .build();
 
         MagicData.Images images2 = new MagicData.Images.Builder()
                 .imagebytes(ByteString.of(image2ByteArray))
-                .imageNameWithExtension("keepsilence.jpg")
+                .imageNameWithExtension("artoolworks_plate.sgi")
                 .build();
-
+        /*
         MagicData.Images images3 = new MagicData.Images.Builder()
                 .imagebytes(ByteString.of(image3ByteArray))
                 .imageNameWithExtension("pinball.jpg")
                 .build();
-
+        */
 
         LinkedList<MagicData.Images> listOfImages = new LinkedList<MagicData.Images>();
         listOfImages.add(images1);
         listOfImages.add(images2);
-        listOfImages.add(images3);
+        //listOfImages.add(images3);
 
 
         MagicData.Marker m = new MagicData.Marker.Builder()
-                .markerName("yellow2")
+                .markerName("keepsilence")
                 .fset(ByteString.of(fsetByteArray))
                 .fset3(ByteString.of(fset3ByteArray))
                 .iset(ByteString.of(isetByteArray))

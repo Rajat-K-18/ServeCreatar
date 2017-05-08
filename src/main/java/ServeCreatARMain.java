@@ -194,14 +194,16 @@ public class ServeCreatARMain {
             for(File file:markerFolderFile.listFiles()){
                 if(file.getName().toString().equals("information")){
                     for(File f:file.listFiles()){
-                        if(f.getName().toString().equals("images")){
-                            for(File imageFile:f.listFiles()) {
-                                System.out.println("************Image name is ::");
-                                mDBHelper.insertDataImageTable(
-                                        marker.markerName,
-                                        imageFile.getAbsolutePath(),
-                                        getImageName(imageFile.getName())
-                                );
+                        if(f.getName().toString().equals("texture")){
+                            if(f.isDirectory()&&f.listFiles()!=null) {
+                                for (File imageFile : f.listFiles()) {
+                                    System.out.println("************Image name is ::");
+                                    mDBHelper.insertDataImageTable(
+                                            marker.markerName,
+                                            imageFile.getAbsolutePath(),
+                                            getImageName(imageFile.getName())
+                                    );
+                                }
                             }
                         }
                     }

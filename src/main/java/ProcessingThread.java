@@ -35,20 +35,28 @@ public class ProcessingThread extends Thread implements Serializable{
     public void run() {
         super.run();
 
-
-        DBHelper mDBHelper = new DBHelper();
-        ResultSet markerpngresultset = null;
-        markerpngresultset = mDBHelper.getMarkersResultSet();
-
-
-
-        Statement stmt = null;
-
-
-        markerpngresultset = mDBHelper.getMarkersResultSet();
-
         Logger.log(TAG, "entering run");
         try {
+            doTest();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //startRecognitions();
+
+        return;
+
+    }
+
+    private void startRecognitions() {
+        ResultSet markerpngresultset = null;
+        markerpngresultset = mDBHelper.getMarkersResultSet();
+        startRecognitions(markerpngresultset);
+    }
+
+    private void startRecognitions(ResultSet markerpngresultset) {
+        try {
+          //  doTest();
             if(markerpngresultset!=null) {
                 while (markerpngresultset.next()) {
                     //System.out.println(markerpngresultset.getString(1));
@@ -74,9 +82,6 @@ public class ProcessingThread extends Thread implements Serializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        return;
-
     }
 
     ProcessingThread(byte[] data, MyWebSocketHandler mWebSocketHandler, String mUniqueId,DBHelper dbHelper){
@@ -170,7 +175,7 @@ public class ProcessingThread extends Thread implements Serializable{
             }
         }
         Logger.log(TAG,"good matches list sizeis: "+goodMatchesList.size());
-        if (goodMatchesList.size() >= 7) {
+        if (goodMatchesList.size() >= 5) {
             System.out.println("Object Found!!!");
 
             List<KeyPoint> objKeypointlist = objectKeyPoints.toList();
@@ -225,6 +230,7 @@ public class ProcessingThread extends Thread implements Serializable{
             MagicData magicData = mDBHelper.getMagicData(markerPNGPath);
             byte[] magicDataBytes = MagicData.ADAPTER.encode(magicData);
             mWebSocketHandler.getSession().getRemote().sendBytes(ByteBuffer.wrap(magicDataBytes));
+
         }
         else {
             //mWebSocketHandler.sendClient("OBJECT NOT FOUND!!!!!!!!!"+System.currentTimeMillis());

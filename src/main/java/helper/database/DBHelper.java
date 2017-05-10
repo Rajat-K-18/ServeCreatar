@@ -265,7 +265,7 @@ public class DBHelper {
             MagicData.Information information = new MagicData.Information.Builder().
                     mtl(
                             ByteString.of(
-                                    markerAndInformationResultSet.getByte(MarkerAndInformationTable.COLUMN_MARKER_MTL_INDEX)
+                                    markerAndInformationResultSet.getBytes(MarkerAndInformationTable.COLUMN_MARKER_MTL_INDEX)
                             )
                     ).
                     obj(

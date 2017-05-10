@@ -32,33 +32,33 @@ public  class FileRead {
     }
 
     public static void loadSomeTestMarkerFiles() throws IOException {
-        File read_fset = new File("magic/keepsilence.fset");
+        File read_fset = new File("magic/chinese.fset");
          fsetByteArray = new byte[(int) read_fset.length()];
         FileInputStream f1 = new FileInputStream(read_fset);
         f1.read(fsetByteArray);
         f1.close();
 
         /* Read the fset3 file */
-        File read_fset3 = new File("magic/keepsilence.fset3");
+        File read_fset3 = new File("magic/chinese.fset3");
         fset3ByteArray = new byte[(int) read_fset3.length()];
         FileInputStream f2 = new FileInputStream(read_fset3);
         f2.read(fset3ByteArray);
         f2.close();
 
         /* Read the iset file */
-        File read_iset = new File("magic/keepsilence.iset");
+        File read_iset = new File("magic/chinese.iset");
         isetByteArray = new byte[(int) read_iset.length()];
         FileInputStream f3 = new FileInputStream(read_iset);
         f3.read(isetByteArray);
         f3.close();
 
-        File read_obj = new File("magic/keepsilence.obj");
+        File read_obj = new File("magic/chinese.obj");
          objByteArray = new byte[(int) read_obj.length()];
         FileInputStream f4 = new FileInputStream(read_obj);
         f4.read(objByteArray);
         f4.close();
 
-        File read_mtl = new File("magic/keepsilence.mtl");
+        File read_mtl = new File("magic/chinese.mtl");
          mtlByteArray = new byte[(int) read_mtl.length()];
         FileInputStream f5 = new FileInputStream(read_mtl);
         f5.read(mtlByteArray);
@@ -110,7 +110,7 @@ public  class FileRead {
 
 
         MagicData.Marker m = new MagicData.Marker.Builder()
-                .markerName("keepsilence")
+                .markerName("chinese")
                 .fset(ByteString.of(fsetByteArray))
                 .fset3(ByteString.of(fset3ByteArray))
                 .iset(ByteString.of(isetByteArray))
